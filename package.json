@@ -1,0 +1,88 @@
+{
+  "name": "react-google-genai",
+  "version": "1.0.0",
+  "description": "Ergonomic React hooks for Google Gemini AI — streaming, chat, function calling, and TanStack Query integration.",
+  "license": "MIT",
+  "author": "@sanjaiyan-dev",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prepublishOnly": "npm run build && npm run typecheck"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-query": {
+      "optional": false
+    }
+  },
+  "dependencies": {
+    "@google/genai": "^1.50.1",
+    "react-compiler-runtime": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@tanstack/react-query": "^5.100.5",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "esbuild-plugin-babel": "^0.2.3",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-compiler": "^19.1.0-rc.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^17.5.0",
+    "prettier": "^3.8.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1"
+  },
+  "keywords": [
+    "react",
+    "google",
+    "genai",
+    "gemini",
+    "ai",
+    "llm",
+    "hooks",
+    "streaming",
+    "tanstack-query",
+    "react-query",
+    "function-calling"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanjaiyan-dev/react-google-genai"
+  }
+}
