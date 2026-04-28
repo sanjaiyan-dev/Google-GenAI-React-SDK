@@ -1,5 +1,5 @@
 import type { GoogleGenAI, GenerateContentResponse, Tool, Part } from '@google/genai';
-import type { QueryClient } from '@tanstack/react-query';
+import type { QueryClient, experimental_streamedQuery } from '@tanstack/react-query';
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 
@@ -10,8 +10,8 @@ import type { QueryClient } from '@tanstack/react-query';
 export interface GenAIProviderConfig {
   /** Your Gemini API key from Google AI Studio. */
   apiKey: string;
-  /** 
-   * Optional existing TanStack QueryClient. 
+  /**
+   * Optional existing TanStack QueryClient.
    * If not provided, a new one will be created and managed by the provider.
    */
   queryClient?: QueryClient;
@@ -25,21 +25,21 @@ export interface GenAIProviderConfig {
  * Base options for content generation hooks.
  */
 export interface UseGenerateContentOptions {
-  /** 
-   * The Gemini model to use (e.g., 'gemini-2.0-flash'). 
+  /**
+   * The Gemini model to use (e.g., 'gemini-2.0-flash').
    * See Google documentation for available models.
    */
   model: string;
-  /** 
+  /**
    * Optional system instruction to guide the model's behavior across all interactions.
    */
   systemInstruction?: string;
-  /** 
+  /**
    * Maximum number of tokens to include in the output.
    */
   maxOutputTokens?: number;
-  /** 
-   * Controls the randomness of the output. 
+  /**
+   * Controls the randomness of the output.
    * Values range from 0 to 2. Lower values are more deterministic.
    */
   temperature?: number;
@@ -66,14 +66,14 @@ export interface UseGenerateContentOptionsQuery extends Omit<UseGenerateContentO
     /** Time in milliseconds until unused data is removed from the cache. Defaults to 12 minutes. */
     gcTime?: number;
   };
-  /** 
-   * If false, the query will not automatically execute. 
+  /**
+   * If false, the query will not automatically execute.
    * Useful for manual triggers or waiting for other data.
    * Defaults to true.
    */
   trigger?: boolean;
-  /** 
-   * Number of retry attempts if the fetch fails. 
+  /**
+   * Number of retry attempts if the fetch fails.
    * Defaults to 3.
    */
   retryCount?: number;
@@ -101,6 +101,11 @@ export interface UseStreamContentOptions {
   systemInstruction?: string;
   /** Sampling temperature. */
   temperature?: number;
+}
+
+export interface UseStreamContentQueryOptions extends UseStreamContentOptions {
+  prompt?: string;
+  refetchMode?: Parameters<typeof experimental_streamedQuery>['0']['refetchMode'];
 }
 
 /**
@@ -154,9 +159,9 @@ export interface UseChatOptions {
   systemInstruction?: string;
   /** Sampling temperature. */
   temperature?: number;
-  /** 
-   * Whether to stream responses back from the model. 
-   * Defaults to true. 
+  /**
+   * Whether to stream responses back from the model.
+   * Defaults to true.
    */
   streaming?: boolean;
 }
@@ -176,8 +181,8 @@ export interface UseFunctionCallingOptions {
   model: string;
   /** List of tool declarations (functions) the model can invoke. */
   tools: Tool[];
-  /** 
-   * A mapping of function names to their local Javascript implementations. 
+  /**
+   * A mapping of function names to their local Javascript implementations.
    */
   handlers: Record<string, FunctionHandler>;
   /** Optional system instructions. */

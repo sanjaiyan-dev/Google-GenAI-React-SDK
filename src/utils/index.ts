@@ -12,6 +12,7 @@ export function extractText(response: GenerateContentResponse): string {
  * Extract all text parts from a content part array.
  */
 export function extractTextFromParts(parts: Part[]): string {
+  'use memo';
   return parts
     .filter((p) => typeof p.text === 'string')
     .map((p) => p.text ?? '')

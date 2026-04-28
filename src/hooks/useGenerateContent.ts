@@ -53,12 +53,12 @@ export function useGenerateContentMutate(options: UseGenerateContentOptions) {
   return {
     /**
      * Function to trigger the generation.
-     * @param prompt - The input text for the model.
+     * @param {string} prompt - The input text for the model.
      */
     generate: mutation.mutate,
     /**
      * Async version of generate that returns a Promise.
-     * @param prompt - The input text for the model.
+     * @param {string} prompt - The input text for the model.
      */
     generateAsync: mutation.mutateAsync,
     /** The raw result from the Gemini API. Defaults to null if no data. */

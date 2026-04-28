@@ -1,6 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
 import { useGenAIClient } from './useGenAIClient.js';
-import type { UseStreamContentOptions, StreamState } from '../types/index.js';
+import type {
+  UseStreamContentOptions,
+  StreamState,
+  UseStreamContentQueryOptions,
+} from '../types/index.js';
+import { useQuery, experimental_streamedQuery as streamedQuery } from '@tanstack/react-query';
 
 const INITIAL_STATE: StreamState = {
   chunks: [],
@@ -27,6 +32,9 @@ export function useStreamContent(options: UseStreamContentOptions) {
   const client = useGenAIClient();
   const [state, setState] = useState<StreamState>(INITIAL_STATE);
   const abortRef = useRef<(() => void) | null>(null);
+  const query = useQuery({
+    queryKey: [],
+  });
 
   const stream = useCallback(
     async (prompt: string) => {
@@ -108,3 +116,28 @@ export function useStreamContent(options: UseStreamContentOptions) {
     error: state.error,
   };
 }
+
+export const useStreamContentQuery = (options: UseStreamContentQueryOptions) => {
+  const queryKey = [
+    '@google/genai',
+    'generateContent',
+    options.prompt,
+    options.model,
+    options.systemInstruction,
+    options.temperature,
+  ] as const;
+  const client = useGenAIClient();
+
+  return useQuery({
+    queryKey,
+    queryFn: streamedQuery({
+      streamFn: async () =>
+        await client.models.generateContentStream({
+          model: options.model,
+          contents: options.prompt ?? '',
+        }),
+
+      refetchMode: options.refetchMode ?? 'reset',
+    }),
+  });
+};

@@ -15,7 +15,7 @@ export function useGenAIContext(): GenAIContextValue {
   if (!ctx) {
     throw new Error(
       '[react-google-genai] No GenAIProvider found. ' +
-      'Wrap your app with <GenAIProvider apiKey="...">',
+        'Wrap your app with <GenAIProvider apiKey="...">',
     );
   }
   return ctx;
