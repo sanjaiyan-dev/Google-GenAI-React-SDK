@@ -44,7 +44,7 @@ export function useChat(options: UseChatOptions) {
         ...(temperature !== undefined && { temperature }),
       },
     });
-  }, [client, model, systemInstruction, temperature]);
+  }, [client.chats, model, systemInstruction, temperature]);
 
   // Initialize session on mount
   useEffect(() => {

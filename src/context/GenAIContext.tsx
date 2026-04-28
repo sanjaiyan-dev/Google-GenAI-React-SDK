@@ -1,4 +1,4 @@
-import React, { createContext, use, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { GoogleGenAI } from '@google/genai';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import type { GenAIProviderConfig } from '../types/index.js';
@@ -11,11 +11,11 @@ const GenAIContext = createContext<GenAIContextValue | null>(null);
 
 /** @internal Use useGenAIClient() from hooks instead */
 export function useGenAIContext(): GenAIContextValue {
-  const ctx = use(GenAIContext);
+  const ctx = useContext(GenAIContext);
   if (!ctx) {
     throw new Error(
       '[react-google-genai] No GenAIProvider found. ' +
-        'Wrap your app with <GenAIProvider apiKey="...">',
+      'Wrap your app with <GenAIProvider apiKey="...">',
     );
   }
   return ctx;

@@ -51,27 +51,33 @@ export function useGenerateContentMutate(options: UseGenerateContentOptions) {
   });
 
   return {
-    /** Trigger content generation */
+    /**
+     * Function to trigger the generation.
+     * @param prompt - The input text for the model.
+     */
     generate: mutation.mutate,
-    /** Trigger content generation and await promise */
+    /**
+     * Async version of generate that returns a Promise.
+     * @param prompt - The input text for the model.
+     */
     generateAsync: mutation.mutateAsync,
-    /** Last successful result */
+    /** The raw result from the Gemini API. Defaults to null if no data. */
     data: mutation.data ?? null,
-    /** Last submitted input variables used for the generation */
+    /** The prompt string used for the current/last generation. */
     variables: mutation.variables,
-    /** Convenience: extracted text from last response */
+    /** Convenience field containing only the text part of the response. */
     text: mutation.data?.text ?? '',
-    /** True while the mutation is currently executing */
+    /** Boolean state indicating if the request is currently in flight. */
     isPending: mutation.isPending,
-    /** True if the last mutation resulted in an error */
+    /** Boolean state indicating if the last request failed. */
     isError: mutation.isError,
-    /** True if the last mutation succeeded */
+    /** Boolean state indicating if the last request was successful. */
     isSuccess: mutation.isSuccess,
-    /** Error object from the last failed mutation (if any) */
+    /** The error object if the request failed. */
     error: mutation.error,
-    /** Current mutation status (idle | pending | error | success) */
+    /** The current status of the mutation ('idle' | 'pending' | 'error' | 'success'). */
     status: mutation.status,
-    /** Reset mutation state */
+    /** Function to reset the mutation state to its initial values. */
     reset: mutation.reset,
   };
 }
@@ -80,6 +86,7 @@ export const useGenerateContentQuery = (options: UseGenerateContentOptionsQuery)
   const client = useGenAIClient();
   const queryKey = [
     '@google/genai',
+    'generateContent',
     options.prompt,
     options.model,
     options.systemInstruction,
@@ -117,14 +124,23 @@ export const useGenerateContentQuery = (options: UseGenerateContentOptionsQuery)
   });
 
   return {
+    /** The unique key used for this query in the cache. */
     queryKey,
+    /** The raw result from the Gemini API. Defaults to null if no data. */
     data: query.data ?? null,
+    /** Convenience field containing only the text part of the response. */
     text: query.data?.text ?? '',
+    /** Boolean state indicating if the query is currently fetching. */
     isPending: query.isPending,
+    /** Boolean state indicating if the query encountered an error. */
     isError: query.isError,
+    /** Boolean state indicating if the query was successful. */
     isSuccess: query.isSuccess,
+    /** The error object if the query failed. */
     error: query.error,
+    /** The current status of the query ('pending' | 'error' | 'success'). */
     status: query.status,
+    /** Function to manually trigger a refetch of the data. */
     refetch: query.refetch,
   };
 };
