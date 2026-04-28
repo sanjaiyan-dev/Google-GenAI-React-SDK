@@ -1,5 +1,5 @@
 import type { GoogleGenAI, GenerateContentResponse, Tool, Part } from '@google/genai';
-import type { QueryClient } from '@tanstack/react-query';
+import type { QueryClient, ThrowOnError } from '@tanstack/react-query';
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 
@@ -22,6 +22,23 @@ export interface UseGenerateContentOptions {
   maxOutputTokens?: number;
   /** Temperature 0–2 */
   temperature?: number;
+  /**
+   * Callback function triggered when the generation process encounters an error.
+   * Useful for global error handling, logging, or showing toast notifications.
+   *
+   * @param error - The error object thrown during the request.
+   */
+  onError?: (error: Error) => void | Promise<void>;
+}
+
+export interface UseGenerateContentOptionsQuery extends UseGenerateContentOptions {
+  prompt: string;
+  cacheConfig: {
+    staleTime?: number;
+    gcTime?: number;
+  };
+  trigger?: boolean;
+  retryCount?: number;
 }
 
 export interface GenerateResult {
@@ -42,6 +59,10 @@ export interface StreamState {
   fullText: string;
   isStreaming: boolean;
   error: Error | null;
+}
+
+export interface UseStreamContentHook extends UseStreamContentOptions {
+  onError: Promise<void>;
 }
 
 // ─── Chat ─────────────────────────────────────────────────────────────────────

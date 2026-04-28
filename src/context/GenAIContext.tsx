@@ -1,6 +1,6 @@
 import React, { createContext, use, useMemo } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import type { GenAIProviderConfig } from '../types/index.js';
 
 interface GenAIContextValue {
@@ -26,7 +26,7 @@ function createQueryClient() {
     defaultOptions: {
       queries: {
         staleTime: 1000 * 60 * 5, // 5 minutes
-        retry: 1,
+        retry: 3,
       },
     },
   });
@@ -48,7 +48,8 @@ export function GenAIProvider({
   children,
 }: GenAIProviderConfig): React.JSX.Element {
   const client = useMemo(() => new GoogleGenAI({ apiKey }), [apiKey]);
-  const [qClient] = React.useState(() => queryClient ?? createQueryClient());
+  const nearestQueryClient = useQueryClient(queryClient);
+  const [qClient] = React.useState(() => nearestQueryClient ?? createQueryClient());
 
   const contextValue = useMemo(() => ({ client }), [client]);
 

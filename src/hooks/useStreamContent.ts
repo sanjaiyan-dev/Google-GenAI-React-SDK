@@ -1,4 +1,3 @@
-
 import { useCallback, useRef, useState } from 'react';
 import { useGenAIClient } from './useGenAIClient.js';
 import type { UseStreamContentOptions, StreamState } from '../types/index.js';
