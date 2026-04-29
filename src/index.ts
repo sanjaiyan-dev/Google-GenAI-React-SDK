@@ -1,16 +1,17 @@
 // Provider & Context
-export { GenAIProvider } from './context/GenAIContext.js';
+export { GenAIProvider } from './context/GenAIContext';
 
 // Hooks
-export { useGenAIClient } from './hooks/useGenAIClient.js';
-export { useGenerateContentMutate, useGenerateContentQuery } from './hooks/useGenerateContent.js';
-export { useStreamContent, useStreamContentQuery } from './hooks/useStreamContent.js';
-export { useChat } from './hooks/useChat.js';
-export { useFunctionCalling } from './hooks/useFunctionCalling.js';
-export { useModelInfo } from './hooks/useModelInfo.js';
+export { useGenAIClient } from './hooks/useGenAIClient';
+export { useGenerateContentMutate, useGenerateContentQuery } from './hooks/useGenerateContent';
+export { useStreamContent, useStreamContentQuery } from './hooks/useStreamContent';
+export { useChat } from './hooks/useChat';
+export { useFunctionCalling } from './hooks/useFunctionCalling';
+export { useModelInfo } from './hooks/useModelInfo';
+export { useInteractionBaseCreateQuery } from './hooks/interactions/useInteractionBase';
 
 // Utils
-export { extractText, extractTextFromParts, textPrompt, imagePrompt } from './utils/index.js';
+export { extractText, extractTextFromParts, textPrompt, imagePrompt } from './utils/index';
 
 // Types
 export type {
@@ -28,4 +29,4 @@ export type {
   GenerateContentResponse,
   Tool,
   Part,
-} from './types/index.js';
+} from './types/index';

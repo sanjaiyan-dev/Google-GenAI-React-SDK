@@ -1,4 +1,12 @@
-import type { GoogleGenAI, GenerateContentResponse, Tool, Part } from '@google/genai';
+import type {
+  GoogleGenAI,
+  GenerateContentResponse,
+  Tool,
+  Part,
+  Interactions,
+  Model,
+  Models,
+} from '@google/genai';
 import type { QueryClient, experimental_streamedQuery } from '@tanstack/react-query';
 
 // ─── Provider ────────────────────────────────────────────────────────────────
@@ -19,6 +27,13 @@ export interface GenAIProviderConfig {
   children: React.ReactNode;
 }
 
+interface CacheConfig {
+  /** Time in milliseconds until the data is considered stale. Defaults to 5 minutes. */
+  staleTime?: number;
+  /** Time in milliseconds until unused data is removed from the cache. Defaults to 12 minutes. */
+  gcTime?: number;
+}
+
 // ─── Generate Content ─────────────────────────────────────────────────────────
 
 /**
@@ -29,7 +44,7 @@ export interface UseGenerateContentOptions {
    * The Gemini model to use (e.g., 'gemini-2.0-flash').
    * See Google documentation for available models.
    */
-  model: string;
+  model: Parameters<Models['generateContent']>['0']['model'];
   /**
    * Optional system instruction to guide the model's behavior across all interactions.
    */
@@ -37,12 +52,12 @@ export interface UseGenerateContentOptions {
   /**
    * Maximum number of tokens to include in the output.
    */
-  maxOutputTokens?: number;
+  maxOutputTokens?: Model['outputTokenLimit'];
   /**
    * Controls the randomness of the output.
    * Values range from 0 to 2. Lower values are more deterministic.
    */
-  temperature?: number;
+  temperature?: Model['temperature'];
   /**
    * Optional callback function triggered when a generation request fails.
    * In `useGenerateContentMutate`, this is passed directly to the mutation.
@@ -60,12 +75,7 @@ export interface UseGenerateContentOptionsQuery extends Omit<UseGenerateContentO
   /** The input prompt for the generation. Changes to this prompt will trigger a new fetch. */
   prompt: string;
   /** Configuration for TanStack Query's caching behavior. */
-  cacheConfig: {
-    /** Time in milliseconds until the data is considered stale. Defaults to 5 minutes. */
-    staleTime?: number;
-    /** Time in milliseconds until unused data is removed from the cache. Defaults to 12 minutes. */
-    gcTime?: number;
-  };
+  cacheConfig?: CacheConfig;
   /**
    * If false, the query will not automatically execute.
    * Useful for manual triggers or waiting for other data.
@@ -100,12 +110,19 @@ export interface UseStreamContentOptions {
   /** Optional system prompt. */
   systemInstruction?: string;
   /** Sampling temperature. */
-  temperature?: number;
+  temperature?: Model['temperature'];
 }
 
 export interface UseStreamContentQueryOptions extends UseStreamContentOptions {
   prompt?: string;
   refetchMode?: Parameters<typeof experimental_streamedQuery>['0']['refetchMode'];
+  cacheConfig?: CacheConfig;
+  /**
+   * If false, the query will not automatically execute.
+   * Useful for manual triggers or waiting for other data.
+   * Defaults to true.
+   */
+  trigger?: boolean;
 }
 
 /**
@@ -158,7 +175,7 @@ export interface UseChatOptions {
   /** Initial system instructions for the chat model. */
   systemInstruction?: string;
   /** Sampling temperature. */
-  temperature?: number;
+  temperature?: Model['temperature'];
   /**
    * Whether to stream responses back from the model.
    * Defaults to true.
@@ -188,7 +205,16 @@ export interface UseFunctionCallingOptions {
   /** Optional system instructions. */
   systemInstruction?: string;
   /** Sampling temperature. */
-  temperature?: number;
+  temperature?: Model['temperature'];
+}
+
+// ─── Interaction API ──────────────────────────────────────────────────────
+export interface UseInteractionBaseCreateHook {
+  prompt: Parameters<Interactions['create']>['0']['input'];
+  api_version?: Parameters<Interactions['create']>['0']['api_version'];
+  model: Interactions.Model;
+  cacheConfig?: CacheConfig;
+  trigger?: boolean;
 }
 
 // ─── Re-exports from @google/genai for convenience ───────────────────────────

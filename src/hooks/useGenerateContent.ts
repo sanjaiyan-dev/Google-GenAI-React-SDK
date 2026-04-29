@@ -117,8 +117,8 @@ export const useGenerateContentQuery = (options: UseGenerateContentOptionsQuery)
         text,
       };
     },
-    staleTime: options.cacheConfig.staleTime ?? 1000 * 60 * 5,
-    gcTime: options.cacheConfig.gcTime ?? 1000 * 60 * 12,
+    staleTime: options.cacheConfig?.staleTime ?? 1000 * 60 * 5,
+    gcTime: options.cacheConfig?.gcTime ?? 1000 * 60 * 12,
     enabled: options.trigger ?? true,
     retry: options.retryCount ?? 3,
   });

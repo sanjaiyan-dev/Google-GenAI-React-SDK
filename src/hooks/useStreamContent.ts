@@ -128,16 +128,23 @@ export const useStreamContentQuery = (options: UseStreamContentQueryOptions) => 
   ] as const;
   const client = useGenAIClient();
 
-  return useQuery({
-    queryKey,
-    queryFn: streamedQuery({
-      streamFn: async () =>
-        await client.models.generateContentStream({
-          model: options.model,
-          contents: options.prompt ?? '',
-        }),
+  return {
+    streamQuery: useQuery({
+      queryKey,
+      queryFn: streamedQuery({
+        streamFn: async () =>
+          await client.models.generateContentStream({
+            model: options.model,
+            contents: options.prompt ?? '',
+          }),
 
-      refetchMode: options.refetchMode ?? 'reset',
+        refetchMode: options.refetchMode ?? 'reset',
+      }),
+      staleTime: options.cacheConfig?.staleTime ?? 1000 * 60 * 5,
+      gcTime: options.cacheConfig?.gcTime ?? 1000 * 60 * 12,
+      enabled: options.trigger ?? true,
+      initialData: [],
     }),
-  });
+    queryKey,
+  };
 };
