@@ -209,10 +209,19 @@ export interface UseFunctionCallingOptions {
 }
 
 // ─── Interaction API ──────────────────────────────────────────────────────
-export interface UseInteractionBaseCreateHook {
-  prompt: Parameters<Interactions['create']>['0']['input'];
+interface UseInteractionBaseCreateHook {
   api_version?: Parameters<Interactions['create']>['0']['api_version'];
   model: Interactions.Model;
+  systemInstruction?: Parameters<Interactions['create']>['0']['system_instruction'];
+  temperature: Model['temperature'];
+}
+
+export interface UseInteractionBaseCreateHookMutate extends UseInteractionBaseCreateHook {
+  onCreateError?: (error: Error) => void | Promise<void>;
+  onDeleteError?: (error: Error) => void | Promise<void>;
+}
+export interface UseInteractionBaseCreateHookQuery extends UseInteractionBaseCreateHook {
+  prompt: Parameters<Interactions['create']>['0']['input'];
   cacheConfig?: CacheConfig;
   trigger?: boolean;
 }
