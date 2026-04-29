@@ -28,9 +28,13 @@ export interface GenAIProviderConfig {
 }
 
 interface CacheConfig {
-  /** Time in milliseconds until the data is considered stale. Defaults to 5 minutes. */
+  /** Time in milliseconds until the data is considered stale. Defaults to 5 minutes.
+   * @default 300000
+   */
   staleTime?: number;
-  /** Time in milliseconds until unused data is removed from the cache. Defaults to 12 minutes. */
+  /** Time in milliseconds until unused data is removed from the cache. Defaults to 12 minutes.
+   * @default 720000
+   */
   gcTime?: number;
 }
 
@@ -62,7 +66,7 @@ export interface UseGenerateContentOptions {
    * Optional callback function triggered when a generation request fails.
    * In `useGenerateContentMutate`, this is passed directly to the mutation.
    *
-   * @param error - The error object thrown during the request.
+   * @param {Error} error - The error object thrown during the request.
    */
   onError?: (error: Error) => void | Promise<void>;
 }
@@ -79,12 +83,12 @@ export interface UseGenerateContentOptionsQuery extends Omit<UseGenerateContentO
   /**
    * If false, the query will not automatically execute.
    * Useful for manual triggers or waiting for other data.
-   * Defaults to true.
+   * @default true
    */
   trigger?: boolean;
   /**
    * Number of retry attempts if the fetch fails.
-   * Defaults to 3.
+   * @default 3
    */
   retryCount?: number;
 }
@@ -120,7 +124,7 @@ export interface UseStreamContentQueryOptions extends UseStreamContentOptions {
   /**
    * If false, the query will not automatically execute.
    * Useful for manual triggers or waiting for other data.
-   * Defaults to true.
+   * @default true
    */
   trigger?: boolean;
 }
@@ -178,7 +182,7 @@ export interface UseChatOptions {
   temperature?: Model['temperature'];
   /**
    * Whether to stream responses back from the model.
-   * Defaults to true.
+   * @default true
    */
   streaming?: boolean;
 }
@@ -213,16 +217,33 @@ interface UseInteractionBaseCreateHook {
   api_version?: Parameters<Interactions['create']>['0']['api_version'];
   model: Interactions.Model;
   systemInstruction?: Parameters<Interactions['create']>['0']['system_instruction'];
-  temperature: Model['temperature'];
+  temperature?: Model['temperature'];
 }
 
 export interface UseInteractionBaseCreateHookMutate extends UseInteractionBaseCreateHook {
+  /**
+   * Optional callback function triggered when a generation request fails.
+   * In `useInteractionBaseMutate`, this is passed directly to the mutation.
+   *
+   * @param {Error} error - The error object thrown during the request.
+   */
   onCreateError?: (error: Error) => void | Promise<void>;
+  /**
+   * Optional callback function triggered when a deletion request fails.
+   * In `useInteractionBaseMutate`, this is passed directly to the mutation.
+   *
+   * @param {Error} error - The error object thrown during the request.
+   */
   onDeleteError?: (error: Error) => void | Promise<void>;
 }
 export interface UseInteractionBaseCreateHookQuery extends UseInteractionBaseCreateHook {
   prompt: Parameters<Interactions['create']>['0']['input'];
   cacheConfig?: CacheConfig;
+  /**
+   * If false, the query will not automatically execute.
+   * Useful for manual triggers or waiting for other data.
+   * @default true
+   */
   trigger?: boolean;
 }
 

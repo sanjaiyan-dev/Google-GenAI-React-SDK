@@ -8,7 +8,10 @@ export { useStreamContent, useStreamContentQuery } from './hooks/useStreamConten
 export { useChat } from './hooks/useChat';
 export { useFunctionCalling } from './hooks/useFunctionCalling';
 export { useModelInfo } from './hooks/useModelInfo';
-export { useInteractionBaseCreateQuery } from './hooks/interactions/useInteractionBase';
+export {
+  useInteractionBaseCreateQuery,
+  useInteractionBaseMutate,
+} from './hooks/interactions/useInteractionBase';
 
 // Utils
 export { extractText, extractTextFromParts, textPrompt, imagePrompt } from './utils/index';

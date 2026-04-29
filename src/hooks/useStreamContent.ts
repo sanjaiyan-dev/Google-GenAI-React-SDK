@@ -32,9 +32,6 @@ export function useStreamContent(options: UseStreamContentOptions) {
   const client = useGenAIClient();
   const [state, setState] = useState<StreamState>(INITIAL_STATE);
   const abortRef = useRef<(() => void) | null>(null);
-  const query = useQuery({
-    queryKey: [],
-  });
 
   const stream = useCallback(
     async (prompt: string) => {

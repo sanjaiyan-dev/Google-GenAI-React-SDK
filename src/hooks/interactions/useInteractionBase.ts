@@ -116,13 +116,13 @@ export const useInteractionBaseMutate = (options: UseInteractionBaseCreateHookMu
     },
     delete: {
       /**
-       * Function to trigger the generation.
+       * Function to delete an interaction.
        * @param {string} variables.interactionID - The ID of the interaction to delete
        * @param variables.interactionDeleteParams - Optional delete parameters
        */
       delete: mutationDelete.mutate,
       /**
-       * Async version of generate that returns a Promise.
+       * Async version of delete that returns a Promise.
        * @param {string} variables.interactionID - The ID of the interaction to delete
        * @param variables.interactionDeleteParams - Optional delete parameters
        */
