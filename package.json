@@ -30,7 +30,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepublishOnly": "npm run build && npm run typecheck"
+    "prepublishOnly": "npm run build && npm run typecheck",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "@tanstack/react-query": ">=5.0.0",
@@ -50,23 +51,27 @@
     "@babel/core": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
+    "@eslint/js": "^9.39.4",
     "@tanstack/react-query": "^5.100.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
     "esbuild-plugin-babel": "^0.2.3",
-    "eslint": "^9.39.4",
+    "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.5.0",
     "prettier": "^3.8.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "tsup": "^8.5.1",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.1"
+    "typescript-eslint": "^8.59.1",
+    "zod-validation-error": "^5.0.0"
   },
   "keywords": [
     "react",

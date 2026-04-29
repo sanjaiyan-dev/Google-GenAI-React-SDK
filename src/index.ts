@@ -33,3 +33,4 @@ export type {
   Tool,
   Part,
 } from './types/index';
+export type * from './types/index';

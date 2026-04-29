@@ -6,6 +6,7 @@ import type {
   Interactions,
   Model,
   Models,
+  GoogleGenAIOptions,
 } from '@google/genai';
 import type { QueryClient, experimental_streamedQuery } from '@tanstack/react-query';
 
@@ -15,17 +16,58 @@ import type { QueryClient, experimental_streamedQuery } from '@tanstack/react-qu
  * Configuration for the GenAI provider component.
  * This configures the underlying Google GenAI client and optionally provides a custom TanStack QueryClient.
  */
-export interface GenAIProviderConfig {
-  /** Your Gemini API key from Google AI Studio. */
-  apiKey: string;
-  /**
-   * Optional existing TanStack QueryClient.
-   * If not provided, a new one will be created and managed by the provider.
-   */
-  queryClient?: QueryClient;
-  /** React components that will have access to the GenAI context. */
-  children: React.ReactNode;
-}
+export type GenAIProviderConfig =
+  | {
+      /**
+       * Vertex AI mode configuration.
+       * When provided, the provider will use Google Cloud Vertex AI
+       * instead of a direct Gemini API key.
+       */
+      vertexAIConfig: {
+        /** Google Cloud project ID used for Vertex AI. */
+        project: GoogleGenAIOptions['project'];
+
+        /** Region for Vertex AI requests (e.g. "us-central1"). */
+        location: GoogleGenAIOptions['location'];
+      };
+
+      /**
+       * API key is NOT allowed when using Vertex AI mode.
+       * This enforces mutually exclusive auth methods.
+       */
+      apiKey?: never;
+
+      /**
+       * Optional existing TanStack QueryClient.
+       * If not provided, a new one will be created and managed by the provider.
+       */
+      queryClient?: QueryClient;
+
+      /** React components that will have access to the GenAI context. */
+      children: React.ReactNode;
+    }
+  | {
+      /**
+       * API key mode configuration.
+       * Used for Google AI Studio / Gemini API authentication.
+       */
+      apiKey: GoogleGenAIOptions['apiKey'];
+
+      /**
+       * Vertex AI config is NOT allowed when using API key mode.
+       * This prevents mixing authentication strategies.
+       */
+      vertexAIConfig?: never;
+
+      /**
+       * Optional existing TanStack QueryClient.
+       * If not provided, a new one will be created and managed by the provider.
+       */
+      queryClient?: QueryClient;
+
+      /** React components that will have access to the GenAI context. */
+      children: React.ReactNode;
+    };
 
 interface CacheConfig {
   /** Time in milliseconds until the data is considered stale. Defaults to 5 minutes.

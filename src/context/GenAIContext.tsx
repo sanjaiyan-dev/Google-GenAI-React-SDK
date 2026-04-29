@@ -46,8 +46,23 @@ export function GenAIProvider({
   apiKey,
   queryClient,
   children,
+  vertexAIConfig,
 }: GenAIProviderConfig): React.JSX.Element {
-  const client = useMemo(() => new GoogleGenAI({ apiKey }), [apiKey]);
+  const client = useMemo(
+    () =>
+      new GoogleGenAI({
+        ...(apiKey !== undefined && {
+          apiKey: apiKey,
+        }),
+        ...(vertexAIConfig?.project !== undefined &&
+          vertexAIConfig?.location !== undefined && {
+            vertexai: true,
+            project: vertexAIConfig.project,
+            location: vertexAIConfig.location,
+          }),
+      }),
+    [apiKey, vertexAIConfig],
+  );
   const nearestQueryClient = useQueryClient(queryClient);
   const [qClient] = React.useState(() => nearestQueryClient ?? createQueryClient());
 
