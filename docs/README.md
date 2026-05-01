@@ -1,3 +1,7 @@
+**react-google-genai**
+
+***
+
 # ✨ react-google-genai
 
 > **Ergonomic React hooks for Google Gemini AI** — streaming, multi-turn chat, automatic function calling, and TanStack Query integration. Pre-compiled with the React Compiler.
@@ -743,7 +747,7 @@ it('generates content', async () => {
 
 ## 📚 Resources
 
-- 📖 [Full Documentation](./docs/globals.md)
+- 📖 [Full Documentation](_media/globals.md)
 - 🌐 [Google Gemini Docs](https://ai.google.dev)
 - ☁️ [Vertex AI Documentation](https://cloud.google.com/vertex-ai/docs)
 - 🎯 [TanStack Query](https://tanstack.com/query)

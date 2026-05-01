@@ -1,6 +1,6 @@
-import React, { createContext, use, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import type { GenAIProviderConfig } from '../types/index.js';
 
 interface GenAIContextValue {
@@ -11,7 +11,7 @@ const GenAIContext = createContext<GenAIContextValue | null>(null);
 
 /** @internal Use useGenAIClient() from hooks instead */
 export function useGenAIContext(): GenAIContextValue {
-  const ctx = use(GenAIContext);
+  const ctx = useContext(GenAIContext);
   if (!ctx) {
     throw new Error(
       '[react-google-genai] No GenAIProvider found. ' +
@@ -26,7 +26,7 @@ function createQueryClient() {
     defaultOptions: {
       queries: {
         staleTime: 1000 * 60 * 5, // 5 minutes
-        retry: 1,
+        retry: 3,
       },
     },
   });
@@ -46,9 +46,25 @@ export function GenAIProvider({
   apiKey,
   queryClient,
   children,
+  vertexAIConfig,
 }: GenAIProviderConfig): React.JSX.Element {
-  const client = useMemo(() => new GoogleGenAI({ apiKey }), [apiKey]);
-  const [qClient] = React.useState(() => queryClient ?? createQueryClient());
+  const client = useMemo(
+    () =>
+      new GoogleGenAI({
+        ...(apiKey !== undefined && {
+          apiKey: apiKey,
+        }),
+        ...(vertexAIConfig?.project !== undefined &&
+          vertexAIConfig?.location !== undefined && {
+            vertexai: true,
+            project: vertexAIConfig.project,
+            location: vertexAIConfig.location,
+          }),
+      }),
+    [apiKey, vertexAIConfig],
+  );
+  const nearestQueryClient = useQueryClient(queryClient);
+  const [qClient] = React.useState(() => nearestQueryClient ?? createQueryClient());
 
   const contextValue = useMemo(() => ({ client }), [client]);
 

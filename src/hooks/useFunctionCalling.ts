@@ -122,6 +122,7 @@ export function useFunctionCalling(options: UseFunctionCallingOptions) {
     text: mutation.data?.text ?? '',
     /** Number of model turns taken */
     turns: mutation.data?.turns ?? 0,
+    variables: mutation.variables,
     isPending: mutation.isPending,
     isError: mutation.isError,
     isSuccess: mutation.isSuccess,
