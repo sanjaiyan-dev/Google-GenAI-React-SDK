@@ -35,7 +35,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: npm run prepublishOnly && npx changeset publish
+          publish: npx changeset publish
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
         env:
