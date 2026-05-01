@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useGenAIClient } from './useGenAIClient.js';
+import { Interactions } from '@google/genai';
 
 /**
  * Hook to fetch metadata about a Gemini model.
  * Result is cached via TanStack Query.
+ *
+ * @returns Fetched about models
  *
  * @example
  * ```tsx
@@ -11,7 +14,7 @@ import { useGenAIClient } from './useGenAIClient.js';
  * if (data) console.log(data.displayName, data.inputTokenLimit);
  * ```
  */
-export function useModelInfo(model: string) {
+export function useModelInfo(model: Interactions.Model | (string & {})) {
   const client = useGenAIClient();
 
   return useQuery({

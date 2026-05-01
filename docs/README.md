@@ -2,224 +2,765 @@
 
 ***
 
-# react-google-genai
+# ✨ react-google-genai
 
-> **Ergonomic React hooks for Google Gemini AI** — streaming, multi-turn chat, automatic function calling, and TanStack Query integration. Compiled with the React Compiler.
+> **Ergonomic React hooks for Google Gemini AI** — streaming, multi-turn chat, automatic function calling, and TanStack Query integration. Pre-compiled with the React Compiler.
 
-[![npm](https://img.shields.io/npm/v/react-google-genai)](https://www.npmjs.com/package/react-google-genai)
-[![license](https://img.shields.io/npm/l/react-google-genai)](./LICENSE)
+<div align="center">
 
----
+[![npm](https://img.shields.io/npm/v/react-google-genai?style=flat-square&color=2563eb)](https://www.npmjs.com/package/react-google-genai)
+[![license](https://img.shields.io/npm/l/react-google-genai?style=flat-square&color=2563eb)](./LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178c6?style=flat-square)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19+-087ea4?style=flat-square)](https://react.dev)
+[![TanStack Query](https://img.shields.io/badge/TanStack%20Query-5+-ef4444?style=flat-square)](https://tanstack.com/query)
 
-## Features
-
-- **`useGenerateContent`** — One-shot text generation via `useMutation`
-- **`useStreamContent`** — Token-by-token streaming with abort support
-- **`useChat`** — Multi-turn conversations with history, streaming by default
-- **`useFunctionCalling`** — Automatic tool-use loop; register handlers and forget
-- **`useModelInfo`** — Cached model metadata via `useQuery`
-- ✅ Full TypeScript types
-- ✅ React Compiler pre-compiled
-- ✅ Zero config — bring your own `QueryClient` or let the library create one
-- ✅ Dual ESM + CJS build
+</div>
 
 ---
 
-## Installation
+## 🎯 Overview
+
+**react-google-genai** is a production-ready SDK that brings the power of Google's Gemini AI to React applications with a suite of ergonomic hooks. Built on top of TanStack Query for powerful state management, it provides:
+
+- 🚀 **Out-of-the-box streaming** — Display AI responses token-by-token for better UX
+- 💬 **Multi-turn conversations** — Stateful chat management with automatic history
+- ⚡ **Function calling** — Let the AI call your custom functions automatically
+- 🎨 **Flexible authentication** — API Key or Vertex AI support
+- 📦 **Zero-config setup** — Works instantly, highly customizable
+- 🔒 **Type-safe** — Full TypeScript support with comprehensive JSDoc
+- ⚙️ **React Compiler ready** — Pre-compiled for automatic memoization
+
+---
+
+## 📦 Installation
 
 ```bash
 npm install react-google-genai @google/genai @tanstack/react-query
 ```
 
+### Requirements
+- **React 18+**
+- **TanStack Query 5+**
+- **Node.js 20+**
+
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
-### 1. Wrap your app
+### Step 1: Configure your provider
 
+Choose your authentication method:
+
+#### **Option A: API Key (Development)**
 ```tsx
 import { GenAIProvider } from 'react-google-genai';
 
-function App() {
+export function App() {
   return (
     <GenAIProvider apiKey={process.env.VITE_GEMINI_API_KEY!}>
-      <MyApp />
+      <YourApp />
     </GenAIProvider>
   );
 }
 ```
 
-### 2. Generate content
-
+#### **Option B: Vertex AI (Production)**
 ```tsx
-import { useGenerateContent } from 'react-google-genai';
+import { GenAIProvider } from 'react-google-genai';
 
-function Demo() {
-  const { generate, text, isPending } = useGenerateContent({
-    model: 'gemini-2.0-flash',
-  });
-
+export function App() {
   return (
-    <>
-      <button onClick={() => generate('Tell me a joke')} disabled={isPending}>
-        {isPending ? 'Generating…' : 'Generate'}
-      </button>
-      <p>{text}</p>
-    </>
+    <GenAIProvider
+      vertexAIConfig={{
+        project: process.env.GCP_PROJECT_ID!,
+        location: 'us-central1'
+      }}
+    >
+      <YourApp />
+    </GenAIProvider>
   );
 }
 ```
 
-### 3. Streaming
+### Step 2: Use hooks in your components
+
+---
+
+## 📚 Core Hooks
+
+### 🤖 One-Shot Generation
+
+Generate content with a single request using **`useGenerateContentMutate`**:
+
+```tsx
+import { useGenerateContentMutate } from 'react-google-genai';
+
+export function JokeGenerator() {
+  const { generate, text, isPending, error } = useGenerateContentMutate({
+    model: 'gemini-2.0-flash',
+    temperature: 0.9,
+  });
+
+  return (
+    <div>
+      <button 
+        onClick={() => generate('Tell me a funny joke')} 
+        disabled={isPending}
+      >
+        {isPending ? '⏳ Generating...' : '✨ Generate Joke'}
+      </button>
+      
+      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+      {text && <p>{text}</p>}
+    </div>
+  );
+}
+```
+
+**When to use:** Button clicks, form submissions, explicit user actions
+
+---
+
+### 🔄 Streaming Responses
+
+Display AI responses in real-time as they're generated with **`useStreamContent`**:
 
 ```tsx
 import { useStreamContent } from 'react-google-genai';
 
-function StreamDemo() {
-  const { stream, fullText, isStreaming } = useStreamContent({
+export function StreamingDemo() {
+  const { stream, fullText, isStreaming, error, abort } = useStreamContent({
     model: 'gemini-2.0-flash',
+    systemInstruction: 'You are a helpful coding assistant.',
   });
 
   return (
-    <>
-      <button onClick={() => stream('Explain React Compiler')} disabled={isStreaming}>
-        Stream
+    <div>
+      <button onClick={() => stream('Explain React hooks')} disabled={isStreaming}>
+        {isStreaming ? '⏳ Streaming...' : '🎬 Start Stream'}
       </button>
-      <p>{fullText}</p>
-    </>
+      
+      {isStreaming && (
+        <button onClick={abort} style={{ marginLeft: '10px' }}>
+          ⏹️ Stop
+        </button>
+      )}
+
+      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+      
+      <div 
+        style={{ 
+          whiteSpace: 'pre-wrap',
+          minHeight: '100px',
+          padding: '10px',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px'
+        }}
+      >
+        {fullText}
+        {isStreaming && '▌'}
+      </div>
+    </div>
   );
 }
 ```
 
-### 4. Multi-turn Chat
+**Features:**
+- `abort()` — Cancel streaming mid-way
+- `chunks` — Access individual chunks for custom processing
+- `fullText` — Complete accumulated response
+- Real-time display of responses
+
+---
+
+### 💬 Multi-Turn Chat
+
+Maintain conversation history with **`useChat`**:
 
 ```tsx
 import { useChat } from 'react-google-genai';
+import { useState } from 'react';
 
-function ChatDemo() {
-  const { sendMessage, messages, isResponding, reset } = useChat({
+export function ChatInterface() {
+  const [input, setInput] = useState('');
+  const { sendMessage, messages, isResponding, error, reset } = useChat({
     model: 'gemini-2.0-flash',
-    streaming: true,
+    streaming: true, // Stream responses by default
+    systemInstruction: 'You are a helpful assistant.',
   });
 
+  const handleSend = () => {
+    if (input.trim()) {
+      sendMessage(input);
+      setInput('');
+    }
+  };
+
   return (
-    <>
-      {messages.map((m) => (
-        <div key={m.id}><b>{m.role}:</b> {m.text}</div>
-      ))}
-      <button onClick={() => sendMessage('Hello!')} disabled={isResponding}>
-        Send
-      </button>
-      <button onClick={reset}>Reset</button>
-    </>
+    <div style={{ maxWidth: '600px' }}>
+      {/* Message History */}
+      <div style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}>
+        {messages.map((msg) => (
+          <div 
+            key={msg.id}
+            style={{
+              marginBottom: '10px',
+              padding: '10px',
+              borderRadius: '8px',
+              backgroundColor: msg.role === 'user' ? '#e3f2fd' : '#f5f5f5'
+            }}
+          >
+            <strong>{msg.role === 'user' ? '👤 You' : '🤖 Assistant'}:</strong>
+            <p>{msg.text}</p>
+          </div>
+        ))}
+        {isResponding && <p style={{ color: '#666' }}>⏳ Assistant is thinking...</p>}
+      </div>
+
+      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+
+      {/* Input Area */}
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+          placeholder="Type your message..."
+          disabled={isResponding}
+          style={{ flex: 1, padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+        />
+        <button onClick={handleSend} disabled={isResponding || !input.trim()}>
+          Send
+        </button>
+        <button onClick={reset} style={{ backgroundColor: '#f44336', color: 'white' }}>
+          Reset
+        </button>
+      </div>
+
+      <p style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
+        📍 {messages.length} messages in conversation
+      </p>
+    </div>
   );
 }
 ```
 
-### 5. Function Calling
+**Key Features:**
+- Automatic history management
+- Stateful multi-turn conversations
+- Streaming or non-streaming responses
+- Message persistence and replay
+
+---
+
+### 🔧 Function Calling
+
+Let AI execute your custom functions automatically with **`useFunctionCalling`**:
 
 ```tsx
 import { useFunctionCalling } from 'react-google-genai';
+import type { Tool } from 'react-google-genai';
 
-const weatherDeclaration = {
-  name: 'getWeather',
-  description: 'Gets current weather for a city',
-  parameters: {
-    type: 'OBJECT',
-    properties: {
-      city: { type: 'STRING', description: 'City name' },
-    },
-    required: ['city'],
+// Define your tools
+const tools: Tool[] = [
+  {
+    name: 'getWeather',
+    description: 'Get current weather for a city',
+    parameters: {
+      type: 'OBJECT',
+      properties: {
+        city: { type: 'STRING', description: 'City name' },
+        unit: { 
+          type: 'STRING', 
+          enum: ['C', 'F'],
+          description: 'Temperature unit'
+        }
+      },
+      required: ['city']
+    }
   },
+  {
+    name: 'calculateDistance',
+    description: 'Calculate distance between two cities',
+    parameters: {
+      type: 'OBJECT',
+      properties: {
+        from: { type: 'STRING', description: 'Starting city' },
+        to: { type: 'STRING', description: 'Destination city' }
+      },
+      required: ['from', 'to']
+    }
+  }
+];
+
+// Implement your handlers
+const handlers = {
+  getWeather: async ({ city, unit = 'C' }) => {
+    // Call your API or service
+    const response = await fetch(`/api/weather?city=${city}&unit=${unit}`);
+    return await response.json();
+  },
+  
+  calculateDistance: async ({ from, to }) => {
+    // Call your API or service
+    const response = await fetch(`/api/distance?from=${from}&to=${to}`);
+    return await response.json();
+  }
 };
 
-function FunctionCallingDemo() {
-  const { call, text, isPending } = useFunctionCalling({
+export function SmartAssistant() {
+  const { call, text, isPending, error, turns } = useFunctionCalling({
     model: 'gemini-2.0-flash',
-    tools: [{ functionDeclarations: [weatherDeclaration] }],
-    handlers: {
-      getWeather: async ({ city }) => ({ temperature: 22, unit: 'C', city }),
-    },
+    tools,
+    handlers,
+    systemInstruction: 'You are a travel assistant. Use the available tools to help users.',
   });
 
   return (
-    <>
-      <button onClick={() => call('What is the weather in London?')} disabled={isPending}>
-        Ask
+    <div>
+      <button onClick={() => call('What is the weather in London and Paris?')} disabled={isPending}>
+        {isPending ? '⏳ Processing...' : '🌍 Ask'}
       </button>
-      <p>{text}</p>
-    </>
+
+      {error && <p style={{ color: 'red' }}>❌ Error: {error.message}</p>}
+
+      {text && (
+        <div style={{ marginTop: '20px' }}>
+          <p>{text}</p>
+          <p style={{ fontSize: '12px', color: '#666' }}>
+            🔄 Function calls: {turns}
+          </p>
+        </div>
+      )}
+    </div>
   );
 }
 ```
 
-### 6. Model Info
+**How it works:**
+1. User sends prompt
+2. Model analyzes and decides which functions to call
+3. SDK automatically executes matching handlers
+4. Results are sent back to model
+5. Model generates final response with function results
+6. Process repeats until model finishes
+
+---
+
+### 📊 Model Information
+
+Query cached model metadata with **`useModelInfo`**:
 
 ```tsx
 import { useModelInfo } from 'react-google-genai';
 
-function ModelInfo() {
-  const { data, isLoading } = useModelInfo('gemini-2.0-flash');
-  if (isLoading) return <p>Loading…</p>;
-  return <p>{data?.displayName}</p>;
+export function ModelSelector() {
+  const { data: modelInfo, isLoading, error } = useModelInfo('gemini-2.0-flash');
+
+  if (isLoading) return <p>⏳ Loading model info...</p>;
+  if (error) return <p>❌ Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h3>{modelInfo?.displayName}</h3>
+      <p>Version: {modelInfo?.version}</p>
+      <p>Input tokens: ${modelInfo?.inputTokenCostPer1M}</p>
+      <p>Output tokens: ${modelInfo?.outputTokenCostPer1M}</p>
+      <p>Max input: {modelInfo?.inputTokenLimit} tokens</p>
+      <p>Max output: {modelInfo?.outputTokenLimit} tokens</p>
+    </div>
+  );
 }
 ```
 
 ---
 
-## API Reference
+## ⚙️ Advanced Configuration
 
-### `<GenAIProvider>`
+### Custom QueryClient
+
+For fine-grained control over caching and refetching:
+
+```tsx
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GenAIProvider } from 'react-google-genai';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes
+      retry: 3,
+    },
+  },
+});
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <GenAIProvider 
+        apiKey={process.env.VITE_GEMINI_API_KEY!}
+        queryClient={queryClient}
+      >
+        <YourApp />
+      </GenAIProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+### Handling Errors
+
+All hooks support error callbacks and error states:
+
+```tsx
+const { generate, error, isPending } = useGenerateContentMutate({
+  model: 'gemini-2.0-flash',
+  onError: async (error) => {
+    console.error('Generation failed:', error.message);
+    // Log to error tracking service
+    await logToSentry(error);
+    // Show user-friendly message
+    showNotification('Failed to generate content. Please try again.');
+  }
+});
+
+// Also check error state
+if (error) {
+  if (error.message.includes('429')) {
+    // Rate limit exceeded
+  } else if (error.message.includes('401')) {
+    // Invalid API key
+  }
+}
+```
+
+---
+
+## 📖 Complete API Reference
+
+### `<GenAIProvider />`
+
+Root provider component that sets up the context for all hooks.
 
 | Prop | Type | Required | Description |
 |------|------|----------|-------------|
-| `apiKey` | `string` | ✅ | Gemini API key |
-| `queryClient` | `QueryClient` | ❌ | Custom TanStack QueryClient |
+| `apiKey` | `string` | ✅* | Gemini API key from [ai.google.dev](https://ai.google.dev) |
+| `vertexAIConfig` | `{ project: string, location: string }` | ✅* | Vertex AI configuration (mutually exclusive with `apiKey`) |
+| `queryClient` | `QueryClient` | ❌ | Custom TanStack QueryClient instance |
+| `children` | `ReactNode` | ✅ | Child components |
 
-### `useGenerateContent(options)`
+\* Exactly one of `apiKey` or `vertexAIConfig` is required
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `model` | `string` | Model name |
-| `systemInstruction` | `string` | Optional system prompt |
-| `maxOutputTokens` | `number` | Max tokens |
-| `temperature` | `number` | Sampling temperature |
+---
 
-Returns: `{ generate, generateAsync, data, text, isPending, isError, error, reset }`
+### `useGenerateContentMutate(options)`
+
+One-shot text generation with manual triggering.
+
+**Options:**
+```ts
+interface UseGenerateContentOptions {
+  model: string;                           // e.g., 'gemini-2.0-flash'
+  systemInstruction?: string;              // Optional system prompt
+  maxOutputTokens?: number;                // Max response length
+  temperature?: number;                    // 0-2, higher = more creative
+  onError?: (error: Error) => void;       // Error callback
+}
+```
+
+**Returns:**
+```ts
+{
+  generate: (prompt: string) => void;
+  generateAsync: (prompt: string) => Promise<GenerateResult>;
+  data: GenerateResult | null;
+  text: string;                            // Extracted text from response
+  isPending: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  error: Error | null;
+  status: 'idle' | 'pending' | 'success' | 'error';
+  reset: () => void;
+}
+```
+
+---
 
 ### `useStreamContent(options)`
 
-Returns: `{ stream, abort, reset, chunks, fullText, isStreaming, error }`
+Token-by-token streaming for real-time responses.
+
+**Options:** Same as `useGenerateContentOptions`
+
+**Returns:**
+```ts
+{
+  stream: (prompt: string) => Promise<void>;
+  abort: () => void;
+  reset: () => void;
+  chunks: string[];
+  fullText: string;
+  isStreaming: boolean;
+  error: Error | null;
+}
+```
+
+---
 
 ### `useChat(options)`
 
-| Option | Type | Default |
-|--------|------|---------|
-| `streaming` | `boolean` | `true` |
+Multi-turn conversation management.
 
-Returns: `{ sendMessage, messages, isResponding, error, reset, messageCount }`
+**Options:**
+```ts
+interface UseChatOptions {
+  model: string;
+  systemInstruction?: string;
+  temperature?: number;
+  streaming?: boolean;                     // Default: true
+}
+```
+
+**Returns:**
+```ts
+{
+  sendMessage: (message: string) => void;
+  sendMessageAsync: (message: string) => Promise<void>;
+  messages: ChatMessage[];
+  isResponding: boolean;
+  error: Error | null;
+  reset: () => void;
+  messageCount: number;
+}
+```
+
+---
 
 ### `useFunctionCalling(options)`
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `tools` | `Tool[]` | Gemini tool definitions |
-| `handlers` | `Record<string, FunctionHandler>` | Local function implementations |
+Automatic function invocation by the model.
 
-Returns: `{ call, callAsync, data, text, turns, isPending, isError, error, reset }`
+**Options:**
+```ts
+interface UseFunctionCallingOptions {
+  model: string;
+  tools: Tool[];
+  handlers: Record<string, (args: Record<string, unknown>) => Promise<unknown> | unknown>;
+  systemInstruction?: string;
+  temperature?: number;
+}
+```
+
+**Returns:**
+```ts
+{
+  call: (prompt: string) => void;
+  callAsync: (prompt: string) => Promise<GenerateResult>;
+  data: GenerateResult | null;
+  text: string;
+  turns: number;                           // Number of function calls
+  isPending: boolean;
+  isError: boolean;
+  error: Error | null;
+  reset: () => void;
+}
+```
+
+---
 
 ### `useModelInfo(model: string)`
 
-Returns standard TanStack Query result.
+Query model metadata and capabilities.
+
+**Returns:** Standard TanStack Query result
+```ts
+{
+  data: Model | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+  refetch: () => Promise<void>;
+}
+```
 
 ---
 
-## React Compiler
+## 🎨 Best Practices
 
-This library is pre-compiled with `babel-plugin-react-compiler`. No additional setup needed for users — even those **not** using the React Compiler benefit from automatic memoization.
+### 1. **Authentication**
+```tsx
+// ✅ Load API key from environment
+const apiKey = process.env.VITE_GEMINI_API_KEY;
+if (!apiKey) throw new Error('Missing VITE_GEMINI_API_KEY');
+
+<GenAIProvider apiKey={apiKey}>
+  <App />
+</GenAIProvider>
+
+// ❌ Never hardcode API keys
+// ❌ Never expose API keys in client-side code in production
+```
+
+### 2. **Temperature Selection**
+```tsx
+// Deterministic (Q&A, extraction)
+temperature: 0.1
+
+// Balanced (general use)
+temperature: 0.7
+
+// Creative (brainstorming, writing)
+temperature: 1.5
+```
+
+### 3. **Error Handling**
+```tsx
+const { generate, error, isPending } = useGenerateContentMutate({
+  model: 'gemini-2.0-flash',
+  onError: handleError, // Always provide error handler
+});
+
+function handleError(error: Error) {
+  if (error.message.includes('429')) {
+    // Implement exponential backoff
+  } else if (error.message.includes('401')) {
+    // Refresh authentication
+  }
+}
+```
+
+### 4. **Streaming for Better UX**
+```tsx
+// Good: Stream long responses
+<useStreamContent model="gemini-2.0-flash" />
+
+// Also good: Non-streaming for quick responses
+<useGenerateContentMutate model="gemini-2.0-flash" />
+```
+
+### 5. **System Instructions**
+```tsx
+// Specific instructions improve output quality
+systemInstruction: `
+You are an expert React developer.
+- Always use TypeScript
+- Provide production-ready code
+- Include error handling
+- Add descriptive comments
+`
+```
 
 ---
 
-## License
+## 🔍 Troubleshooting
 
-MIT
+### API Key Issues
+```
+Error: Invalid API key
+→ Verify key at https://ai.google.dev
+→ Check environment variable is loaded
+→ Ensure no extra whitespace
+```
+
+### Rate Limiting
+```
+Error: 429 Too Many Requests
+→ Implement exponential backoff
+→ Use streaming to reduce token usage
+→ Check your quota at Google Cloud Console
+```
+
+### CORS Errors
+```
+Error: CORS policy blocked request
+→ Use Vertex AI for backend integration
+→ Implement backend proxy
+→ Check allowed origins in API settings
+```
+
+### Model Not Found
+```
+Error: Model 'xyz' not found
+→ Use 'gemini-2.0-flash' or 'gemini-1.5-pro'
+→ Check model availability in your region
+→ Verify model name spelling
+```
+
+---
+
+## 📊 Performance Tips
+
+1. **Memoize handlers in function calling:**
+   ```tsx
+   const handlers = useMemo(() => ({ getWeather, getLocation }), []);
+   ```
+
+2. **Use streaming for long responses:**
+   - Improves perceived performance
+   - Better user experience
+   - Reduced memory usage
+
+3. **Cache model info:**
+   - Queries are automatically cached
+   - Use custom `QueryClient` for fine-tuning
+
+4. **Batch function calls:**
+   - Group related functions together
+   - Reduces model latency
+
+5. **React Compiler benefits:**
+   - Pre-compiled for automatic memoization
+   - No additional setup needed
+   - Works even without React Compiler enabled
+
+---
+
+## 🧪 Testing
+
+```tsx
+import { renderHook, act } from '@testing-library/react';
+import { useGenerateContentMutate } from 'react-google-genai';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+it('generates content', async () => {
+  const wrapper = ({ children }) => (
+    <QueryClientProvider client={new QueryClient()}>
+      {children}
+    </QueryClientProvider>
+  );
+
+  const { result } = renderHook(() => useGenerateContentMutate({
+    model: 'gemini-2.0-flash'
+  }), { wrapper });
+
+  act(() => {
+    result.current.generate('Hello');
+  });
+
+  expect(result.current.isPending).toBe(true);
+});
+```
+
+---
+
+## 📚 Resources
+
+- 📖 [Full Documentation](_media/globals.md)
+- 🌐 [Google Gemini Docs](https://ai.google.dev)
+- ☁️ [Vertex AI Documentation](https://cloud.google.com/vertex-ai/docs)
+- 🎯 [TanStack Query](https://tanstack.com/query)
+- 🔑 [Get API Key](https://ai.google.dev/)
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit issues and pull requests.
+
+---
+
+## 📄 License
+
+MIT © 2026 @sanjaiyan-dev

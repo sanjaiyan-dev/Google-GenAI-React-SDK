@@ -82,6 +82,28 @@ export function useGenerateContentMutate(options: UseGenerateContentOptions) {
   };
 }
 
+/**
+ * Hook for generating high-precision static content.
+ * Perfect for taglines, SEO metadata, and UI micro-copy.
+ *
+ * @example
+ * ```tsx
+ * const { data, isPending, error, text } = useGenerateContentQuery({
+ *   model: 'gemini-2.0-flash',
+ *   prompt: 'Provide Thirukkural 619 regarding "Perseverance" and explain its relevance to modern problem solving.'
+ * });
+ *
+ *
+ * if (isPending) return <p>Seeking wisdom...</p>;
+ * if (error) return <p>Error: {error.message}</p>;
+ *
+ * return (
+ *   <article>
+ *     <h1 className="text-xl font-bold">{text}</h1>
+ *   </article>
+ * );
+ * ```
+ */
 export const useGenerateContentQuery = (options: UseGenerateContentOptionsQuery) => {
   const client = useGenAIClient();
   const queryKey = [

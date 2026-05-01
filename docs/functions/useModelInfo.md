@@ -8,7 +8,7 @@
 
 > **useModelInfo**(`model`): `UseQueryResult`\<`Model`, `Error`\>
 
-Defined in: [src/hooks/useModelInfo.ts:14](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useModelInfo.ts#L14)
+Defined in: [src/hooks/useModelInfo.ts:17](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useModelInfo.ts#L17)
 
 Hook to fetch metadata about a Gemini model.
 Result is cached via TanStack Query.
@@ -17,11 +17,13 @@ Result is cached via TanStack Query.
 
 ### model
 
-`string`
+`Model_2`
 
 ## Returns
 
 `UseQueryResult`\<`Model`, `Error`\>
+
+Fetched about models
 
 ## Example
 

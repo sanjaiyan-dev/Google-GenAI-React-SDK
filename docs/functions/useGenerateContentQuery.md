@@ -8,7 +8,10 @@
 
 > **useGenerateContentQuery**(`options`): `object`
 
-Defined in: [src/hooks/useGenerateContent.ts:85](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useGenerateContent.ts#L85)
+Defined in: [src/hooks/useGenerateContent.ts:107](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useGenerateContent.ts#L107)
+
+Hook for generating high-precision static content.
+Perfect for taglines, SEO metadata, and UI micro-copy.
 
 ## Parameters
 
@@ -81,3 +84,21 @@ The current status of the query ('pending' | 'error' | 'success').
 > **text**: `string`
 
 Convenience field containing only the text part of the response.
+
+## Example
+
+```tsx
+const { data, isPending, error, text } = useGenerateContentQuery({
+  model: 'gemini-2.0-flash',
+  prompt: 'Provide Thirukkural 619 regarding "Perseverance" and explain its relevance to modern problem solving.'
+});
+
+if (isPending) return <p>Seeking wisdom...</p>;
+if (error) return <p>Error: {error.message}</p>;
+
+return (
+  <article>
+    <h1 className="text-xl font-bold">{text}</h1>
+  </article>
+);
+```

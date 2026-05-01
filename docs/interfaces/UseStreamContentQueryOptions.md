@@ -6,9 +6,23 @@
 
 # Interface: UseStreamContentQueryOptions
 
-Defined in: [src/types/index.ts:162](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L162)
+Defined in: [src/types/index.ts:606](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L606)
 
-Options for streaming content generation.
+Options specific to `useStreamContentQuery` hook.
+
+Extends [UseStreamContentOptions](UseStreamContentOptions.md) with query-based streaming configuration.
+Use this for declarative streaming that automatically triggers based on dependencies.
+
+## Remarks
+
+Similar to [UseGenerateContentOptionsQuery](UseGenerateContentOptionsQuery.md), this variant:
+- Automatically manages refetch on prompt changes
+- Supports cache configuration
+- Can be conditionally triggered
+
+## See
+
+useStreamContentQuery for usage
 
 ## Extends
 
@@ -20,7 +34,18 @@ Options for streaming content generation.
 
 > `optional` **cacheConfig?**: `CacheConfig`
 
-Defined in: [src/types/index.ts:165](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L165)
+Defined in: [src/types/index.ts:636](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L636)
+
+Configuration for caching chunk history.
+
+#### Remarks
+
+Controls how long completed chunks are cached. Note that active streams
+are not cached; only completed stream results.
+
+#### See
+
+CacheConfig
 
 ***
 
@@ -28,9 +53,18 @@ Defined in: [src/types/index.ts:165](https://github.com/sanjaiyan-dev/Google-Gen
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:155](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L155)
+Defined in: [src/types/index.ts:571](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L571)
 
-Gemini model name.
+The Gemini model identifier for streaming generation.
+
+#### Remarks
+
+Not all models support streaming equally. Streaming support is generally good for:
+- gemini-2.0-flash
+- gemini-1.5-flash
+- gemini-3.1-pro
+
+Verify streaming support for your model in the documentation.
 
 #### Inherited from
 
@@ -42,7 +76,14 @@ Gemini model name.
 
 > `optional` **prompt?**: `string`
 
-Defined in: [src/types/index.ts:163](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L163)
+Defined in: [src/types/index.ts:614](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L614)
+
+The prompt for streaming content generation.
+
+#### Remarks
+
+Optional when used with `trigger: false` for manual triggering.
+Changes to this prompt trigger a new stream.
 
 ***
 
@@ -50,7 +91,18 @@ Defined in: [src/types/index.ts:163](https://github.com/sanjaiyan-dev/Google-Gen
 
 > `optional` **refetchMode?**: `"append"` \| `"reset"` \| `"replace"`
 
-Defined in: [src/types/index.ts:164](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L164)
+Defined in: [src/types/index.ts:625](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L625)
+
+Controls query refetch behavior during streaming.
+
+#### Remarks
+
+Configuration for when and how to refetch stream data. See TanStack Query docs
+for available `refetchMode` options.
+
+#### See
+
+https://tanstack.com/query/v5/docs/reference/streamedQuery
 
 ***
 
@@ -58,9 +110,14 @@ Defined in: [src/types/index.ts:164](https://github.com/sanjaiyan-dev/Google-Gen
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:157](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L157)
+Defined in: [src/types/index.ts:580](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L580)
 
-Optional system prompt.
+Optional system instruction for the streaming session.
+
+#### Remarks
+
+Same behavior as [UseGenerateContentOptions.systemInstruction](UseGenerateContentOptions.md#systeminstruction).
+Applies to all chunks received in this stream.
 
 #### Inherited from
 
@@ -72,9 +129,14 @@ Optional system prompt.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:159](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L159)
+Defined in: [src/types/index.ts:589](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L589)
 
-Sampling temperature.
+Sampling temperature for the streaming generation.
+
+#### Remarks
+
+Same range and behavior as [UseGenerateContentOptions.temperature](UseGenerateContentOptions.md#temperature).
+Affects the randomness of each chunk generated.
 
 #### Inherited from
 
@@ -86,10 +148,14 @@ Sampling temperature.
 
 > `optional` **trigger?**: `boolean`
 
-Defined in: [src/types/index.ts:171](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L171)
+Defined in: [src/types/index.ts:646](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L646)
 
-If false, the query will not automatically execute.
-Useful for manual triggers or waiting for other data.
+Controls whether the stream query automatically starts.
+
+#### Remarks
+
+**When `true` (default):** Stream starts immediately
+**When `false`:** Stream is prepared but doesn't start; can trigger manually
 
 #### Default
 

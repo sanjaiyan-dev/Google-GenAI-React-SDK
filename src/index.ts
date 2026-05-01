@@ -1,3 +1,10 @@
+/**
+ * The intelligence layer for your UI. A type-safe React SDK for `@google/genai` for static content generation with TanStack-powered mutations, sub-second latency, and optimized state management ✨
+ *
+ *
+ * @packageDocumentation
+ */
+
 // Provider & Context
 export { GenAIProvider } from './context/GenAIContext';
 
