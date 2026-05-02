@@ -20,7 +20,7 @@ const INITIAL_STATE: StreamState = {
  * @example
  * ```tsx
  * const { stream, fullText, isStreaming, error, reset } = useStreamContent({
- *   model: 'gemini-2.0-flash',
+ *   model: 'gemini-2.5-flash',
  * });
  *
  * <button onClick={() => stream('Explain quantum entanglement')}>Stream</button>
@@ -114,6 +114,34 @@ export function useStreamContent(options: UseStreamContentOptions) {
   };
 }
 
+/**
+ * Hook for streaming content generation integrated with TanStack Query.
+ * Manages the streaming lifecycle within a cached query state, allowing for
+ * automatic refetching, persistence, and shared state across components.
+ *
+ * @example
+ * ```tsx
+ * const { streamQuery, queryKey } = useStreamContentQuery({
+ *   prompt: 'Explain quantum entanglement',
+ *   model: 'gemini-2.5-flash',
+ *   trigger: true, // Set to false to delay execution
+ * });
+ *
+ * const { data, isLoading, isPlaceholderData } = streamQuery;
+ *
+ * // 'data' is an array of accumulated chunks
+ * const fullText = data?.join('') ?? '';
+ *
+ * return (
+ *   <div>
+ *     {isLoading && <p>Connecting...</p>}
+ *     <p>{fullText}</p>
+ *   </div>
+ * );
+ * ```
+ *
+ * @experimental
+ */
 export const useStreamContentQuery = (options: UseStreamContentQueryOptions) => {
   const queryKey = [
     '@google/genai',

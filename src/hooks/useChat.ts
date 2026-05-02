@@ -14,7 +14,7 @@ function generateId(): string {
  * @example
  * ```tsx
  * const { sendMessage, messages, isResponding, reset } = useChat({
- *   model: 'gemini-2.0-flash',
+ *   model: 'gemini-2.5-flash',
  *   streaming: true,
  * });
  *

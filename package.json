@@ -24,8 +24,7 @@
     "dist"
   ],
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "sideEffects": false,
   "scripts": {
@@ -39,8 +38,8 @@
   },
   "peerDependencies": {
     "@tanstack/react-query": ">=5.0.0",
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "peerDependenciesMeta": {
     "@tanstack/react-query": {
@@ -48,7 +47,7 @@
     }
   },
   "dependencies": {
-    "@google/genai": "^1.50.1",
+    "@google/genai": "^1.51.0",
     "react-compiler-runtime": "^1.0.0"
   },
   "devDependencies": {
@@ -92,6 +91,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanjaiyan-dev/react-google-genai"
+    "url": "https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK"
   }
 }

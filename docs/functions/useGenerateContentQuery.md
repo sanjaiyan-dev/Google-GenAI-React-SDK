@@ -89,7 +89,7 @@ Convenience field containing only the text part of the response.
 
 ```tsx
 const { data, isPending, error, text } = useGenerateContentQuery({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
   prompt: 'Provide Thirukkural 619 regarding "Perseverance" and explain its relevance to modern problem solving.'
 });
 

@@ -8,7 +8,9 @@
 
 > **useInteractionBaseMutate**(`options`): `object`
 
-Defined in: [src/hooks/interactions/useInteractionBase.ts:35](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L35)
+Defined in: [src/hooks/interactions/useInteractionBase.ts:74](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L74)
+
+Hook for imperative interaction creation and deletion.
 
 ## Parameters
 
@@ -185,3 +187,21 @@ The current status of the mutation ('idle' | 'pending' | 'error' | 'success').
 > **variables**: \{ `interactionDeleteParams?`: `InteractionDeleteParams`; `interactionID`: `string`; \} \| `undefined` = `mutationDelete.variables`
 
 The prompt string used for the current/last generation.
+
+## Remarks
+
+Use this hook when you need manual control over creation and deletion
+workflows. The `create` object exposes generation helpers, while the
+`delete` object exposes interaction cleanup helpers.
+
+## Example
+
+```tsx
+const { create, delete: remove } = useInteractionBaseMutate({
+  model: 'gemini-2.5-flash',
+  systemInstruction: 'You are a helpful assistant.',
+});
+
+create.generate('Hello from the user');
+remove.delete({ interactionID: 'example-id' });
+```

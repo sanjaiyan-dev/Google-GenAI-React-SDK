@@ -97,7 +97,7 @@ import { useGenerateContentMutate } from 'react-google-genai';
 
 export function JokeGenerator() {
   const { generate, text, isPending, error } = useGenerateContentMutate({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     temperature: 0.9,
   });
 
@@ -121,6 +121,38 @@ export function JokeGenerator() {
 
 ---
 
+### 🧠 Declarative Generation
+
+Fetch generated text declaratively using **`useGenerateContentQuery`**. This hook is ideal when you want automatic caching, stale-while-revalidate behavior, and a simple query-style API.
+
+```tsx
+import { useGenerateContentQuery } from 'react-google-genai';
+
+export function QueryGenerationDemo() {
+  const { data, text, isPending, isError, error, refetch } = useGenerateContentQuery({
+    model: 'gemini-2.5-flash',
+    prompt: 'Provide Thirukkural 619 regarding "Perseverance" and explain its relevance to modern problem solving.',
+    temperature: 0.2,
+    retryCount: 2,
+  });
+
+  return (
+    <div>
+      <button onClick={() => refetch()} disabled={isPending}>
+        {isPending ? 'Fetching…' : 'Refresh'}
+      </button>
+
+      {isError && <p style={{ color: 'red' }}>Error: {error?.message}</p>}
+      {text && <p>{text}</p>}
+    </div>
+  );
+}
+```
+
+**When to use:** Data-driven pages, cache-aware requests, and reactive prompt handling
+
+---
+
 ### 🔄 Streaming Responses
 
 Display AI responses in real-time as they're generated with **`useStreamContent`**:
@@ -130,7 +162,7 @@ import { useStreamContent } from 'react-google-genai';
 
 export function StreamingDemo() {
   const { stream, fullText, isStreaming, error, abort } = useStreamContent({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     systemInstruction: 'You are a helpful coding assistant.',
   });
 
@@ -165,11 +197,104 @@ export function StreamingDemo() {
 }
 ```
 
+### 🎞️ Streaming with React Query
+Use **`useStreamContentQuery`** when you want streamed AI output managed by TanStack Query. This hook returns a query result and a stable `queryKey`, so you can render chunked text declaratively and reuse query caching across components.
+
+```tsx
+import { useStreamContentQuery } from 'react-google-genai';
+
+export function StreamingQueryDemo() {
+  const { streamQuery, queryKey } = useStreamContentQuery({
+    prompt: 'Explain quantum entanglement in simple terms',
+    model: 'gemini-2.5-flash',
+    trigger: true,
+    refetchMode: 'reset',
+  });
+
+  const fullText = streamQuery.data?.join('') ?? '';
+
+  return (
+    <div>
+      <p>Query Key: {JSON.stringify(queryKey)}</p>
+      {streamQuery.isFetching && <p>Streaming…</p>}
+      {streamQuery.isError && <p style={{ color: 'red' }}>Error: {streamQuery.error?.message}</p>}
+      <div style={{ whiteSpace: 'pre-wrap', minHeight: '120px', padding: '10px', background: '#f7f7ff', borderRadius: '8px' }}>
+        {fullText}
+      </div>
+    </div>
+  );
+}
+```
+
 **Features:**
 - `abort()` — Cancel streaming mid-way
 - `chunks` — Access individual chunks for custom processing
 - `fullText` — Complete accumulated response
 - Real-time display of responses
+
+---
+
+### ⚙️ Interaction Hooks
+
+Use the Interactions API helpers when you want structured request control or query-based interaction creation.
+
+#### `useInteractionBaseCreateQuery`
+
+The query variant creates an interaction declaratively and caches the result based on `model` + `prompt`.
+
+```tsx
+import { useInteractionBaseCreateQuery } from 'react-google-genai';
+
+export function InteractionQueryDemo() {
+  const { interactionResponse, queryKey } = useInteractionBaseCreateQuery({
+    model: 'gemini-2.5-flash',
+    prompt: 'Translate this sentence into Tamil: "Hello world."',
+    systemInstruction: 'You are a translator.',
+    trigger: true,
+  });
+
+  const text = interactionResponse.data?.output?.[0]?.content?.[0]?.text ?? '';
+
+  return (
+    <div>
+      <p>Query key: {JSON.stringify(queryKey)}</p>
+      {interactionResponse.isLoading && <p>Loading…</p>}
+      {interactionResponse.isError && <p style={{ color: 'red' }}>Error: {interactionResponse.error?.message}</p>}
+      <p>{text}</p>
+    </div>
+  );
+}
+```
+
+#### `useInteractionBaseMutate`
+
+Use the mutation variant for imperative interaction control, including manual create and delete operations.
+
+```tsx
+import { useInteractionBaseMutate } from 'react-google-genai';
+
+export function InteractionMutateDemo() {
+  const { create, delete: remove } = useInteractionBaseMutate({
+    model: 'gemini-2.5-flash',
+    systemInstruction: 'You are a helpful assistant.',
+    onCreateError: (error) => console.error(error),
+    onDeleteError: (error) => console.error(error),
+  });
+
+  const handleCreate = () => create.generate('Hello from a user');
+  const handleDelete = () => remove.delete({ interactionID: 'example-id' });
+
+  return (
+    <div>
+      <button onClick={handleCreate}>Create</button>
+      <button onClick={handleDelete} disabled={remove.isPending}>Delete</button>
+      {create.isPending && <p>Creating…</p>}
+      {create.isError && <p style={{ color: 'red' }}>{create.error?.message}</p>}
+      <p>{create.text}</p>
+    </div>
+  );
+}
+```
 
 ---
 
@@ -184,7 +309,7 @@ import { useState } from 'react';
 export function ChatInterface() {
   const [input, setInput] = useState('');
   const { sendMessage, messages, isResponding, error, reset } = useChat({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     streaming: true, // Stream responses by default
     systemInstruction: 'You are a helpful assistant.',
   });
@@ -311,7 +436,7 @@ const handlers = {
 
 export function SmartAssistant() {
   const { call, text, isPending, error, turns } = useFunctionCalling({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     tools,
     handlers,
     systemInstruction: 'You are a travel assistant. Use the available tools to help users.',
@@ -356,7 +481,7 @@ Query cached model metadata with **`useModelInfo`**:
 import { useModelInfo } from 'react-google-genai';
 
 export function ModelSelector() {
-  const { data: modelInfo, isLoading, error } = useModelInfo('gemini-2.0-flash');
+  const { data: modelInfo, isLoading, error } = useModelInfo('gemini-2.5-flash');
 
   if (isLoading) return <p>⏳ Loading model info...</p>;
   if (error) return <p>❌ Error: {error.message}</p>;
@@ -416,7 +541,7 @@ All hooks support error callbacks and error states:
 
 ```tsx
 const { generate, error, isPending } = useGenerateContentMutate({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
   onError: async (error) => {
     console.error('Generation failed:', error.message);
     // Log to error tracking service
@@ -462,7 +587,7 @@ One-shot text generation with manual triggering.
 **Options:**
 ```ts
 interface UseGenerateContentOptions {
-  model: string;                           // e.g., 'gemini-2.0-flash'
+  model: string;                           // e.g., 'gemini-2.5-flash'
   systemInstruction?: string;              // Optional system prompt
   maxOutputTokens?: number;                // Max response length
   temperature?: number;                    // 0-2, higher = more creative
@@ -504,6 +629,169 @@ Token-by-token streaming for real-time responses.
   fullText: string;
   isStreaming: boolean;
   error: Error | null;
+}
+```
+
+---
+
+### `useStreamContentQuery(options)`
+
+Streaming content generation integrated with TanStack Query.
+
+**Options:**
+```ts
+interface UseStreamContentQueryOptions {
+  model: string;
+  prompt?: string;
+  systemInstruction?: string;
+  temperature?: number;
+  trigger?: boolean;
+  refetchMode?: 'reset' | 'merge';
+  cacheConfig?: {
+    staleTime?: number;
+    gcTime?: number;
+  };
+  retryCount?: number;
+}
+```
+
+**Returns:**
+```ts
+{
+  streamQuery: {
+    data?: string[];
+    error?: Error;
+    isFetching: boolean;
+    isError: boolean;
+    status: string;
+    refetch: () => Promise<void>;
+  };
+  queryKey: readonly unknown[];
+}
+```
+
+> Note: `streamQuery.data` is an array of streaming chunks. Use `streamQuery.data?.join('')` to display the full concatenated response.
+
+---
+
+### `useGenerateContentQuery(options)`
+
+Declarative content generation with automatic TanStack Query caching.
+
+**Options:**
+```ts
+interface UseGenerateContentOptionsQuery {
+  model: string;
+  prompt: string;
+  systemInstruction?: string;
+  maxOutputTokens?: number;
+  temperature?: number;
+  cacheConfig?: {
+    staleTime?: number;
+    gcTime?: number;
+  };
+  trigger?: boolean;
+  retryCount?: number;
+}
+```
+
+**Returns:**
+```ts
+{
+  queryKey: readonly unknown[];
+  data: GenerateResult | null;
+  text: string;
+  isPending: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  error: Error | null;
+  status: 'pending' | 'error' | 'success';
+  refetch: () => Promise<void>;
+}
+```
+
+---
+
+### `useInteractionBaseCreateQuery(options)`
+
+Declaratively create an interaction using the Interactions API and cache the response based on `model` and `prompt`.
+
+**Options:**
+```ts
+interface UseInteractionBaseCreateHookQuery {
+  model: string;
+  prompt: string;
+  api_version?: string;
+  systemInstruction?: string;
+  temperature?: number;
+  cacheConfig?: {
+    staleTime?: number;
+    gcTime?: number;
+  };
+  trigger?: boolean;
+}
+```
+
+**Returns:**
+```ts
+{
+  interactionResponse: {
+    data?: Interactions.Interaction;
+    error?: Error;
+    isLoading: boolean;
+    isError: boolean;
+    status: string;
+    refetch: () => Promise<void>;
+  };
+  queryKey: readonly unknown[];
+}
+```
+
+---
+
+### `useInteractionBaseMutate(options)`
+
+Imperative interaction creation and deletion with mutation-based control.
+
+**Options:**
+```ts
+interface UseInteractionBaseCreateHookMutate {
+  model: string;
+  api_version?: string;
+  systemInstruction?: string;
+  temperature?: number;
+  onCreateError?: (error: Error) => void | Promise<void>;
+  onDeleteError?: (error: Error) => void | Promise<void>;
+}
+```
+
+**Returns:**
+```ts
+{
+  create: {
+    generate: (prompt: string) => void;
+    generateAsync: (prompt: string) => Promise<GenerateResult>;
+    data: GenerateResult | null;
+    text: string;
+    isPending: boolean;
+    isError: boolean;
+    isSuccess: boolean;
+    error: Error | null;
+    status: 'idle' | 'pending' | 'success' | 'error';
+    reset: () => void;
+  };
+  delete: {
+    delete: (variables: { interactionID: string; interactionDeleteParams?: Interactions.InteractionDeleteParams }) => void;
+    deleteAsync: (variables: { interactionID: string; interactionDeleteParams?: Interactions.InteractionDeleteParams }) => Promise<unknown>;
+    data: unknown | null;
+    variables: unknown;
+    isPending: boolean;
+    isError: boolean;
+    isSuccess: boolean;
+    error: Error | null;
+    status: 'idle' | 'pending' | 'success' | 'error';
+    reset: () => void;
+  };
 }
 ```
 
@@ -618,7 +906,7 @@ temperature: 1.5
 ### 3. **Error Handling**
 ```tsx
 const { generate, error, isPending } = useGenerateContentMutate({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
   onError: handleError, // Always provide error handler
 });
 
@@ -634,10 +922,10 @@ function handleError(error: Error) {
 ### 4. **Streaming for Better UX**
 ```tsx
 // Good: Stream long responses
-<useStreamContent model="gemini-2.0-flash" />
+<useStreamContent model="gemini-2.5-flash" />
 
 // Also good: Non-streaming for quick responses
-<useGenerateContentMutate model="gemini-2.0-flash" />
+<useGenerateContentMutate model="gemini-2.5-flash" />
 ```
 
 ### 5. **System Instructions**
@@ -683,7 +971,7 @@ Error: CORS policy blocked request
 ### Model Not Found
 ```
 Error: Model 'xyz' not found
-→ Use 'gemini-2.0-flash' or 'gemini-1.5-pro'
+→ Use 'gemini-2.5-flash' or 'gemini-1.5-pro'
 → Check model availability in your region
 → Verify model name spelling
 ```
@@ -732,7 +1020,7 @@ it('generates content', async () => {
   );
 
   const { result } = renderHook(() => useGenerateContentMutate({
-    model: 'gemini-2.0-flash'
+    model: 'gemini-2.5-flash'
   }), { wrapper });
 
   act(() => {

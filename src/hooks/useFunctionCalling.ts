@@ -18,7 +18,7 @@ const MAX_TURNS = 10;
  * @example
  * ```tsx
  * const { call, data, isPending, error } = useFunctionCalling({
- *   model: 'gemini-2.0-flash',
+ *   model: 'gemini-2.5-flash',
  *   tools: [{ functionDeclarations: [getWeatherDeclaration] }],
  *   handlers: {
  *     getWeather: async ({ city }) => ({ temperature: 22, unit: 'C' }),

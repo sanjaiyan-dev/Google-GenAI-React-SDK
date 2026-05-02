@@ -84,7 +84,7 @@ Start streaming generation
 
 ```tsx
 const { stream, fullText, isStreaming, error, reset } = useStreamContent({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
 });
 
 <button onClick={() => stream('Explain quantum entanglement')}>Stream</button>

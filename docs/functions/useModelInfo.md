@@ -28,6 +28,6 @@ Fetched about models
 ## Example
 
 ```tsx
-const { data, isLoading } = useModelInfo('gemini-2.0-flash');
+const { data, isLoading } = useModelInfo('gemini-2.5-flash');
 if (data) console.log(data.displayName, data.inputTokenLimit);
 ```

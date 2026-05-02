@@ -102,7 +102,7 @@ The prompt string used for the current/last generation.
 
 ```tsx
 const { generate, data, isPending, error } = useGenerateContentMutate({
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
 });
 
 <button onClick={() => generate('Tell me a joke')}>Generate</button>

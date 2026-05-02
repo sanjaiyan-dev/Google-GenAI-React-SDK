@@ -12,7 +12,7 @@ import type {
  * @example
  * ```tsx
  * const { generate, data, isPending, error } = useGenerateContentMutate({
- *   model: 'gemini-2.0-flash',
+ *   model: 'gemini-2.5-flash',
  * });
  *
  * <button onClick={() => generate('Tell me a joke')}>Generate</button>
@@ -89,7 +89,7 @@ export function useGenerateContentMutate(options: UseGenerateContentOptions) {
  * @example
  * ```tsx
  * const { data, isPending, error, text } = useGenerateContentQuery({
- *   model: 'gemini-2.0-flash',
+ *   model: 'gemini-2.5-flash',
  *   prompt: 'Provide Thirukkural 619 regarding "Perseverance" and explain its relevance to modern problem solving.'
  * });
  *

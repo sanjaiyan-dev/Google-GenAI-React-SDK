@@ -3,6 +3,26 @@ import { useGenAIClient } from '../useGenAIClient';
 import { UseInteractionBaseCreateHookQuery, UseInteractionBaseCreateHookMutate } from '../../types';
 import type { Interactions } from '@google/genai';
 
+/**
+ * Hook for declarative interaction creation using the Vertex AI Interactions API.
+ *
+ * @remarks
+ * This hook automatically creates an interaction when enabled and caches
+ * the result by `model` and `prompt`. It exposes the underlying query state
+ * via `interactionResponse` so calling components can render loading, error,
+ * and success states.
+ *
+ * @example
+ * ```tsx
+ * const { interactionResponse, queryKey } = useInteractionBaseCreateQuery({
+ *   model: 'gemini-2.5-flash',
+ *   prompt: 'Translate this sentence into Tamil.',
+ *   systemInstruction: 'You are a translator.',
+ * });
+ *
+ * const text = interactionResponse.data?.output?.[0]?.content?.[0]?.text ?? '';
+ * ```
+ */
 export const useInteractionBaseCreateQuery = (options: UseInteractionBaseCreateHookQuery) => {
   const client = useGenAIClient();
   const queryKey = ['@google/genai', 'interactionBase', options.model, options.prompt] as const;
@@ -32,6 +52,25 @@ export const useInteractionBaseCreateQuery = (options: UseInteractionBaseCreateH
   };
 };
 
+/**
+ * Hook for imperative interaction creation and deletion.
+ *
+ * @remarks
+ * Use this hook when you need manual control over creation and deletion
+ * workflows. The `create` object exposes generation helpers, while the
+ * `delete` object exposes interaction cleanup helpers.
+ *
+ * @example
+ * ```tsx
+ * const { create, delete: remove } = useInteractionBaseMutate({
+ *   model: 'gemini-2.5-flash',
+ *   systemInstruction: 'You are a helpful assistant.',
+ * });
+ *
+ * create.generate('Hello from the user');
+ * remove.delete({ interactionID: 'example-id' });
+ * ```
+ */
 export const useInteractionBaseMutate = (options: UseInteractionBaseCreateHookMutate) => {
   const client = useGenAIClient();
 

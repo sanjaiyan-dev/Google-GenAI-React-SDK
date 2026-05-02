@@ -6,7 +6,7 @@
 
 # Interface: GoogleGenAI
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5344
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5361
 
 The Google GenAI SDK.
 
@@ -44,7 +44,7 @@ const ai = new GoogleGenAI({
 
 > `protected` `readonly` **apiClient**: `ApiClient`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5345
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5362
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5345
 
 > `readonly` **authTokens**: `Tokens`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5357
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5374
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5357
 
 > `readonly` **batches**: `Batches`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5352
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5369
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5352
 
 > `readonly` **caches**: `Caches`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5354
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5371
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5354
 
 > `readonly` **chats**: `Chats`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5353
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5370
 
 ***
 
@@ -84,7 +84,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5353
 
 > `readonly` **files**: `Files`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5355
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5372
 
 ***
 
@@ -92,7 +92,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5355
 
 > `readonly` **fileSearchStores**: `FileSearchStores`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5359
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5376
 
 ***
 
@@ -100,7 +100,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5359
 
 > `readonly` **live**: `Live`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5351
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5368
 
 ***
 
@@ -108,7 +108,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5351
 
 > `readonly` **models**: `Models`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5350
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5367
 
 ***
 
@@ -116,7 +116,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5350
 
 > `readonly` **operations**: `Operations`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5356
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5373
 
 ***
 
@@ -124,7 +124,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5356
 
 > `readonly` **tunings**: `Tunings`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5358
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5375
 
 ***
 
@@ -132,7 +132,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5358
 
 > `readonly` **vertexai**: `boolean`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5347
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5364
 
 ## Accessors
 
@@ -142,7 +142,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5347
 
 > **get** **interactions**(): `Interactions`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5364
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5381
 
 ##### Returns
 
@@ -156,7 +156,7 @@ Defined in: node\_modules/@google/genai/dist/genai.d.ts:5364
 
 > **get** **webhooks**(): `Webhooks`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:5365
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:5382
 
 ##### Returns
 
