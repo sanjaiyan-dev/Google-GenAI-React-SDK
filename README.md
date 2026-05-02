@@ -41,7 +41,29 @@ npm install react-google-genai @google/genai @tanstack/react-query
 
 ---
 
-## 🚀 Quick Start
+## � Example App
+
+An example Vite app is available in the `example` folder.
+
+```bash
+cd example
+cp .env.example .env
+# set VITE_GEMINI_API_KEY in example/.env
+npm install
+npm run dev
+```
+
+If you want to run the example against your local package source instead of the published npm package:
+
+```bash
+cd example
+npm install ../
+npm run dev
+```
+
+---
+
+## �🚀 Quick Start
 
 ### Step 1: Configure your provider
 
