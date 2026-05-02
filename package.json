@@ -1,6 +1,6 @@
 {
   "name": "react-google-genai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ergonomic React hooks for Google Gemini AI — streaming, chat, function calling, and TanStack Query integration.",
   "license": "MIT",
   "author": "@sanjaiyan-dev",
