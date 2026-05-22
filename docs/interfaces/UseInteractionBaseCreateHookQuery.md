@@ -6,7 +6,7 @@
 
 # Interface: UseInteractionBaseCreateHookQuery
 
-Defined in: [src/types/index.ts:1305](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1305)
+Defined in: [src/types/index.ts:1361](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1361)
 
 Options for query-based Interactions API operations.
 
@@ -40,7 +40,7 @@ useInteractionBaseCreateQuery for hook implementation
 
 > `optional` **api\_version?**: `string`
 
-Defined in: [src/types/index.ts:1190](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1190)
+Defined in: [src/types/index.ts:1246](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1246)
 
 API version for the Interactions endpoint.
 
@@ -61,7 +61,7 @@ Extracted from the Interactions.create parameters type.
 
 > `optional` **cacheConfig?**: `CacheConfig`
 
-Defined in: [src/types/index.ts:1326](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1326)
+Defined in: [src/types/index.ts:1382](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1382)
 
 Configuration for caching interaction results.
 
@@ -80,7 +80,7 @@ CacheConfig
 
 > **model**: `Model_2`
 
-Defined in: [src/types/index.ts:1201](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1201)
+Defined in: [src/types/index.ts:1257](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1257)
 
 The model to use for this interaction.
 
@@ -99,9 +99,9 @@ Extracted from Interactions.Model type from @google/genai
 
 ### prompt
 
-> **prompt**: `string` \| `TextContent` \| `ImageContent` \| `AudioContent` \| `DocumentContent` \| `VideoContent` \| `ThoughtContent` \| `FunctionCallContent` \| `CodeExecutionCallContent` \| `URLContextCallContent` \| `MCPServerToolCallContent` \| `GoogleSearchCallContent` \| `FileSearchCallContent` \| `GoogleMapsCallContent` \| `FunctionResultContent` \| `CodeExecutionResultContent` \| `URLContextResultContent` \| `GoogleSearchResultContent` \| `MCPServerToolResultContent` \| `FileSearchResultContent` \| `GoogleMapsResultContent` \| `Content_2`[] \| `Turn`[]
+> **prompt**: `string` \| `Step`[] \| `TextContent` \| `ImageContent` \| `AudioContent` \| `DocumentContent` \| `VideoContent` \| `Content_2`[]
 
-Defined in: [src/types/index.ts:1315](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1315)
+Defined in: [src/types/index.ts:1371](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1371)
 
 The initial prompt for creating the interaction.
 
@@ -118,7 +118,7 @@ Extracted from Interactions.create input parameter type.
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:1212](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1212)
+Defined in: [src/types/index.ts:1268](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1268)
 
 System instructions for the interaction session.
 
@@ -139,7 +139,7 @@ Extracted from Interactions.create parameter type.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:1220](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1220)
+Defined in: [src/types/index.ts:1276](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1276)
 
 Sampling temperature for interaction responses.
 
@@ -157,7 +157,7 @@ Same behavior as temperature in other options types.
 
 > `optional` **trigger?**: `boolean`
 
-Defined in: [src/types/index.ts:1339](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1339)
+Defined in: [src/types/index.ts:1395](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1395)
 
 Controls whether the interaction query automatically executes.
 

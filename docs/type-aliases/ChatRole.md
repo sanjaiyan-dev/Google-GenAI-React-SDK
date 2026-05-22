@@ -8,7 +8,7 @@
 
 > **ChatRole** = `"user"` \| `"model"`
 
-Defined in: [src/types/index.ts:801](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L801)
+Defined in: [src/types/index.ts:857](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L857)
 
 Type representing the role/author of a message in a chat conversation.
 

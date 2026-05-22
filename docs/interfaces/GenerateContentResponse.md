@@ -6,7 +6,7 @@
 
 # Interface: GenerateContentResponse
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4611
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4713
 
 Response message for PredictionService.GenerateContent.
 
@@ -16,7 +16,7 @@ Response message for PredictionService.GenerateContent.
 
 > `optional` **automaticFunctionCallingHistory?**: `Content`[]
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4622
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4724
 
 The history of automatic function calling.
 
@@ -26,7 +26,7 @@ The history of automatic function calling.
 
 > `optional` **candidates?**: `Candidate`[]
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4616
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4718
 
 Response variations returned by the model.
 
@@ -36,7 +36,7 @@ Response variations returned by the model.
 
 > `optional` **createTime?**: `string`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4619
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4721
 
 Timestamp when the request is made to the server.
 
@@ -46,7 +46,7 @@ Timestamp when the request is made to the server.
 
 > `optional` **modelStatus?**: `ModelStatus`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4632
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4734
 
 Output only. The current model status of this model. This field is not supported in Vertex AI.
 
@@ -56,7 +56,7 @@ Output only. The current model status of this model. This field is not supported
 
 > `optional` **modelVersion?**: `string`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4624
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4726
 
 Output only. The model version used to generate the response.
 
@@ -66,7 +66,7 @@ Output only. The model version used to generate the response.
 
 > `optional` **promptFeedback?**: `GenerateContentResponsePromptFeedback`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4626
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4728
 
 Output only. Content filter results for a prompt sent in the request. Note: Sent only in the first stream chunk. Only happens when no candidates were generated due to content violations.
 
@@ -76,7 +76,7 @@ Output only. Content filter results for a prompt sent in the request. Note: Sent
 
 > `optional` **responseId?**: `string`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4628
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4730
 
 Output only. response_id is used to identify each response. It is the encoding of the event_id.
 
@@ -86,7 +86,7 @@ Output only. response_id is used to identify each response. It is the encoding o
 
 > `optional` **sdkHttpResponse?**: `HttpResponse`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4613
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4715
 
 Used to retain the full HTTP response.
 
@@ -96,7 +96,7 @@ Used to retain the full HTTP response.
 
 > `optional` **usageMetadata?**: `GenerateContentResponseUsageMetadata`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4630
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4732
 
 Usage metadata about the response(s).
 
@@ -108,7 +108,7 @@ Usage metadata about the response(s).
 
 > **get** **codeExecutionResult**(): `string` \| `undefined`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4759
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4861
 
 Returns the first code execution result from the first candidate in the response.
 
@@ -145,7 +145,7 @@ console.debug(response.codeExecutionResult);
 
 > **get** **data**(): `string` \| `undefined`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4666
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4768
 
 Returns the concatenation of all inline data parts from the first candidate
 in the response.
@@ -169,7 +169,7 @@ a warning will be logged.
 
 > **get** **executableCode**(): `string` \| `undefined`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4736
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4838
 
 Returns the first executable code from the first candidate in the response.
 
@@ -207,7 +207,7 @@ console.debug(response.executableCode);
 
 > **get** **functionCalls**(): `FunctionCall`[] \| `undefined`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4712
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4814
 
 Returns the function calls from the first candidate in the response.
 
@@ -267,7 +267,7 @@ const controlLightFunctionDeclaration: FunctionDeclaration = {
 
 > **get** **text**(): `string` \| `undefined`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:4655
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:4757
 
 Returns the concatenation of all text parts from the first candidate in the response.
 

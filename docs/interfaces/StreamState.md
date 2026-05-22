@@ -6,7 +6,7 @@
 
 # Interface: StreamState
 
-Defined in: [src/types/index.ts:675](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L675)
+Defined in: [src/types/index.ts:731](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L731)
 
 Reactive state representing an active or completed streaming session.
 
@@ -41,7 +41,7 @@ return (
 
 > **chunks**: `string`[]
 
-Defined in: [src/types/index.ts:689](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L689)
+Defined in: [src/types/index.ts:745](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L745)
 
 Array of all text chunks received so far, in order.
 
@@ -62,7 +62,7 @@ Useful when you need individual chunks for:
 
 > **error**: `Error` \| `null`
 
-Defined in: [src/types/index.ts:739](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L739)
+Defined in: [src/types/index.ts:795](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L795)
 
 Error object if the stream failed, or null if successful.
 
@@ -89,7 +89,7 @@ if (!stream.isStreaming && stream.error) {
 
 > **fullText**: `string`
 
-Defined in: [src/types/index.ts:703](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L703)
+Defined in: [src/types/index.ts:759](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L759)
 
 The concatenated full text from all received chunks.
 
@@ -109,7 +109,7 @@ In most UI cases, display this instead of individual chunks.
 
 > **isStreaming**: `boolean`
 
-Defined in: [src/types/index.ts:719](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L719)
+Defined in: [src/types/index.ts:775](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L775)
 
 Boolean flag indicating if the stream is actively receiving data.
 

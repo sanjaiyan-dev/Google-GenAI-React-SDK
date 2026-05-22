@@ -8,7 +8,7 @@
 
 > **useInteractionBaseCreateQuery**(`options`): `object`
 
-Defined in: [src/hooks/interactions/useInteractionBase.ts:26](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L26)
+Defined in: [src/hooks/interactions/useInteractionBase.ts:30](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L30)
 
 Hook for declarative interaction creation using the Vertex AI Interactions API.
 
@@ -28,7 +28,7 @@ Hook for declarative interaction creation using the Vertex AI Interactions API.
 
 ### queryKey
 
-> **queryKey**: readonly \[`"@google/genai"`, `"interactionBase"`, `Model_2`, `string` \| `TextContent` \| `ImageContent` \| `AudioContent` \| `DocumentContent` \| `VideoContent` \| `ThoughtContent` \| `FunctionCallContent` \| `CodeExecutionCallContent` \| `URLContextCallContent` \| `MCPServerToolCallContent` \| `GoogleSearchCallContent` \| `FileSearchCallContent` \| `GoogleMapsCallContent` \| `FunctionResultContent` \| `CodeExecutionResultContent` \| `URLContextResultContent` \| `GoogleSearchResultContent` \| `MCPServerToolResultContent` \| `FileSearchResultContent` \| `GoogleMapsResultContent` \| `Content_2`[] \| `Turn`[]\]
+> **queryKey**: readonly \[`"@google/genai"`, `"interactionBase"`, `Model_2`, `string` \| `Step`[] \| `TextContent` \| `ImageContent` \| `AudioContent` \| `DocumentContent` \| `VideoContent` \| `Content_2`[]\]
 
 ## Remarks
 

@@ -8,7 +8,7 @@
 
 > **FunctionHandler** = (`args`) => `Promise`\<`unknown`\> \| `unknown`
 
-Defined in: [src/types/index.ts:1022](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1022)
+Defined in: [src/types/index.ts:1078](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1078)
 
 Function signature for a custom function implementation callable by the model.
 

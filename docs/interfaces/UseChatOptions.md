@@ -6,7 +6,7 @@
 
 # Interface: UseChatOptions
 
-Defined in: [src/types/index.ts:918](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L918)
+Defined in: [src/types/index.ts:974](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L974)
 
 Configuration options for the `useChat` hook.
 
@@ -49,7 +49,7 @@ const chat = useChat({
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:928](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L928)
+Defined in: [src/types/index.ts:984](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L984)
 
 The Gemini model identifier for the chat session.
 
@@ -66,7 +66,7 @@ Examples: 'gemini-2.0-flash', 'gemini-1.5-pro'
 
 > `optional` **streaming?**: `boolean`
 
-Defined in: [src/types/index.ts:980](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L980)
+Defined in: [src/types/index.ts:1036](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1036)
 
 Whether to stream responses in the chat.
 
@@ -95,7 +95,7 @@ true
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:948](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L948)
+Defined in: [src/types/index.ts:1004](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1004)
 
 Initial system instructions for the chat model.
 
@@ -121,7 +121,7 @@ Useful for establishing:
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:961](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L961)
+Defined in: [src/types/index.ts:1017](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1017)
 
 Sampling temperature for chat responses.
 

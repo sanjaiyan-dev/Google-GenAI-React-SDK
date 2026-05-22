@@ -6,7 +6,7 @@
 
 # Interface: UseStreamContentHook
 
-Defined in: [src/types/index.ts:754](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L754)
+Defined in: [src/types/index.ts:810](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L810)
 
 Return type for the `useStreamContent` hook.
 
@@ -32,7 +32,7 @@ useStreamContent for usage details
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:571](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L571)
+Defined in: [src/types/index.ts:600](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L600)
 
 The Gemini model identifier for streaming generation.
 
@@ -55,7 +55,7 @@ Verify streaming support for your model in the documentation.
 
 > **onError**: `Promise`\<`void`\>
 
-Defined in: [src/types/index.ts:779](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L779)
+Defined in: [src/types/index.ts:835](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L835)
 
 Promise that resolves when the stream completes or rejects on error.
 
@@ -88,7 +88,7 @@ try {
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:580](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L580)
+Defined in: [src/types/index.ts:609](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L609)
 
 Optional system instruction for the streaming session.
 
@@ -107,7 +107,7 @@ Applies to all chunks received in this stream.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:589](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L589)
+Defined in: [src/types/index.ts:618](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L618)
 
 Sampling temperature for the streaming generation.
 
@@ -119,3 +119,42 @@ Affects the randomness of each chunk generated.
 #### Inherited from
 
 [`UseStreamContentOptions`](UseStreamContentOptions.md).[`temperature`](UseStreamContentOptions.md#temperature)
+
+***
+
+### thinkingConfig?
+
+> `optional` **thinkingConfig?**: `ThinkingConfig`
+
+Defined in: [src/types/index.ts:645](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L645)
+
+Configuration for the model's explicit thinking and reasoning capabilities.
+
+#### Remarks
+
+Enables control over the "chain-of-thought" generation process for complex logic, multi-step planning, and reasoning.
+This feature is supported by Gemini 2.5 and Gemini 3 series models.
+
+**Key Parameters:**
+- `includeThoughts`: Determines whether to return the model's internal reasoning process in the response parts.
+- `thinkingBudget`: (Gemini 2.5 series) The token budget allocated for reasoning. Setting this to `0` disables thinking to reduce latency (except on `gemini-2.5-pro`, which has a minimum budget of `128`).
+- `thinkingLevel`: (Gemini 3 series) The level of reasoning depth (`'MINIMAL'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`). Lower levels reduce latency and token usage for simpler tasks.
+
+#### Example
+
+```typescript
+// For Gemini 3: Request low-level reasoning and return the thoughts in the response
+thinkingConfig: {
+  includeThoughts: true,
+  thinkingLevel: 'LOW',
+}
+
+// For Gemini 2.5: Disable thinking completely to achieve lower latency
+thinkingConfig: {
+  thinkingBudget: 0,
+}
+```
+
+#### Inherited from
+
+[`UseStreamContentOptions`](UseStreamContentOptions.md).[`thinkingConfig`](UseStreamContentOptions.md#thinkingconfig)

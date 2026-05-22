@@ -2,13 +2,13 @@
 
 ***
 
-[react-google-genai](../globals.md) / useInteractionBaseMutate
+[react-google-genai](../globals.md) / useInteractionBaseCreateMutate
 
-# Function: useInteractionBaseMutate()
+# Function: useInteractionBaseCreateMutate()
 
-> **useInteractionBaseMutate**(`options`): `object`
+> **useInteractionBaseCreateMutate**(`options`): `object`
 
-Defined in: [src/hooks/interactions/useInteractionBase.ts:74](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L74)
+Defined in: [src/hooks/interactions/useInteractionBase.ts:78](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/interactions/useInteractionBase.ts#L78)
 
 Hook for imperative interaction creation and deletion.
 

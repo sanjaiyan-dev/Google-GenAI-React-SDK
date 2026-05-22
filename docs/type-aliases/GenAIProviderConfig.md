@@ -8,7 +8,7 @@
 
 > **GenAIProviderConfig** = \{ `apiKey?`: `never`; `children`: `React.ReactNode`; `queryClient?`: `QueryClient`; `vertexAIConfig`: \{ `location`: `GoogleGenAIOptions`\[`"location"`\]; `project`: `GoogleGenAIOptions`\[`"project"`\]; \}; \} \| \{ `apiKey`: `GoogleGenAIOptions`\[`"apiKey"`\]; `children`: `React.ReactNode`; `queryClient?`: `QueryClient`; `vertexAIConfig?`: `never`; \}
 
-Defined in: [src/types/index.ts:87](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L87)
+Defined in: [src/types/index.ts:88](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L88)
 
 Configuration for the GenAI provider component.
 

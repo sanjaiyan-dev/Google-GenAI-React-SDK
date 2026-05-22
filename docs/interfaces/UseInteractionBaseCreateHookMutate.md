@@ -6,7 +6,7 @@
 
 # Interface: UseInteractionBaseCreateHookMutate
 
-Defined in: [src/types/index.ts:1241](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1241)
+Defined in: [src/types/index.ts:1297](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1297)
 
 Options for mutation-based Interactions API operations.
 
@@ -38,7 +38,7 @@ useInteractionBaseMutate for hook implementation
 
 > `optional` **api\_version?**: `string`
 
-Defined in: [src/types/index.ts:1190](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1190)
+Defined in: [src/types/index.ts:1246](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1246)
 
 API version for the Interactions endpoint.
 
@@ -59,7 +59,7 @@ Extracted from the Interactions.create parameters type.
 
 > **model**: `Model_2`
 
-Defined in: [src/types/index.ts:1201](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1201)
+Defined in: [src/types/index.ts:1257](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1257)
 
 The model to use for this interaction.
 
@@ -80,7 +80,7 @@ Extracted from Interactions.Model type from @google/genai
 
 > `optional` **onCreateError?**: (`error`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [src/types/index.ts:1261](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1261)
+Defined in: [src/types/index.ts:1317](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1317)
 
 Optional callback for generation/creation request failures.
 
@@ -118,7 +118,7 @@ onCreateError: async (error) => {
 
 > `optional` **onDeleteError?**: (`error`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [src/types/index.ts:1282](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1282)
+Defined in: [src/types/index.ts:1338](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1338)
 
 Optional callback for deletion request failures.
 
@@ -156,7 +156,7 @@ onDeleteError: async (error) => {
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:1212](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1212)
+Defined in: [src/types/index.ts:1268](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1268)
 
 System instructions for the interaction session.
 
@@ -177,7 +177,7 @@ Extracted from Interactions.create parameter type.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:1220](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1220)
+Defined in: [src/types/index.ts:1276](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1276)
 
 Sampling temperature for interaction responses.
 

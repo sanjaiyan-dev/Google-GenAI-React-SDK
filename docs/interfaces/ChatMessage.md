@@ -6,7 +6,7 @@
 
 # Interface: ChatMessage
 
-Defined in: [src/types/index.ts:839](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L839)
+Defined in: [src/types/index.ts:895](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L895)
 
 Represents a single message in a chat conversation history.
 
@@ -53,7 +53,7 @@ const messages: ChatMessage[] = [
 
 > **id**: `string`
 
-Defined in: [src/types/index.ts:883](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L883)
+Defined in: [src/types/index.ts:939](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L939)
 
 Unique identifier for the message.
 
@@ -83,7 +83,7 @@ Used as React key for list rendering. Should be:
 
 > **role**: [`ChatRole`](../type-aliases/ChatRole.md)
 
-Defined in: [src/types/index.ts:849](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L849)
+Defined in: [src/types/index.ts:905](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L905)
 
 The role/author of the message.
 
@@ -100,7 +100,7 @@ Used by the API to understand conversational context.
 
 > **text**: `string`
 
-Defined in: [src/types/index.ts:860](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L860)
+Defined in: [src/types/index.ts:916](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L916)
 
 The text content of the message.
 

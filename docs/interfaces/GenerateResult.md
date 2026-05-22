@@ -6,7 +6,7 @@
 
 # Interface: GenerateResult
 
-Defined in: [src/types/index.ts:499](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L499)
+Defined in: [src/types/index.ts:528](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L528)
 
 Standardized result object returned by content generation operations.
 
@@ -46,7 +46,7 @@ return (
 
 > **response**: [`GenerateContentResponse`](GenerateContentResponse.md)
 
-Defined in: [src/types/index.ts:517](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L517)
+Defined in: [src/types/index.ts:546](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L546)
 
 The full raw response object from the @google/genai SDK.
 
@@ -73,7 +73,7 @@ https://ai.google.dev/api/rest/v1/GenerateContentResponse
 
 > **text**: `string`
 
-Defined in: [src/types/index.ts:533](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L533)
+Defined in: [src/types/index.ts:562](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L562)
 
 The extracted text content from the model's first response candidate.
 

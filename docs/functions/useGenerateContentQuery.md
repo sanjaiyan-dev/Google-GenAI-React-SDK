@@ -8,7 +8,7 @@
 
 > **useGenerateContentQuery**(`options`): `object`
 
-Defined in: [src/hooks/useGenerateContent.ts:107](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useGenerateContent.ts#L107)
+Defined in: [src/hooks/useGenerateContent.ts:110](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useGenerateContent.ts#L110)
 
 Hook for generating high-precision static content.
 Perfect for taglines, SEO metadata, and UI micro-copy.

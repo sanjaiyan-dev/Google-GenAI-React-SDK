@@ -6,7 +6,7 @@
 
 # Interface: UseGenerateContentOptions
 
-Defined in: [src/types/index.ts:282](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L282)
+Defined in: [src/types/index.ts:283](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L283)
 
 Base options for content generation hooks.
 
@@ -37,7 +37,7 @@ Current popular models: 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'
 
 > `optional` **maxOutputTokens?**: `number`
 
-Defined in: [src/types/index.ts:330](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L330)
+Defined in: [src/types/index.ts:331](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L331)
 
 Maximum number of tokens to include in the output.
 
@@ -55,7 +55,7 @@ Each model has a maximum supported value. Leaving undefined uses the model's def
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:300](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L300)
+Defined in: [src/types/index.ts:301](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L301)
 
 The Gemini model identifier to use for content generation.
 
@@ -82,7 +82,7 @@ https://ai.google.dev/models/gemini
 
 > `optional` **onError?**: (`error`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [src/types/index.ts:374](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L374)
+Defined in: [src/types/index.ts:375](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L375)
 
 Optional callback function triggered when a content generation request fails.
 
@@ -126,7 +126,7 @@ onError: async (error) => {
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:318](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L318)
+Defined in: [src/types/index.ts:319](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L319)
 
 Optional system instruction to guide the model's behavior.
 
@@ -150,7 +150,7 @@ but can be overridden by contradictory instructions in the user prompt.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:347](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L347)
+Defined in: [src/types/index.ts:348](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L348)
 
 Controls the randomness and creativity of the output.
 
@@ -169,4 +169,39 @@ Paired with `top_p` or `top_k` for fine-grained control.
 
 ```ts
 undefined (model default, typically 1)
+```
+
+***
+
+### thinkingConfig?
+
+> `optional` **thinkingConfig?**: `ThinkingConfig`
+
+Defined in: [src/types/index.ts:403](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L403)
+
+Configuration for the model's explicit thinking and reasoning capabilities.
+
+#### Remarks
+
+Enables control over the "chain-of-thought" generation process for complex logic, multi-step planning, and reasoning.
+This feature is supported by Gemini 2.5 and Gemini 3 series models.
+
+**Key Parameters:**
+- `includeThoughts`: Determines whether to return the model's internal reasoning process in the response parts.
+- `thinkingBudget`: (Gemini 2.5 series) The token budget allocated for reasoning. Setting this to `0` disables thinking to reduce latency (except on `gemini-2.5-pro`, which has a minimum budget of `128`).
+- `thinkingLevel`: (Gemini 3 series) The level of reasoning depth (`'MINIMAL'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`). Lower levels reduce latency and token usage for simpler tasks.
+
+#### Example
+
+```typescript
+// For Gemini 3: Request low-level reasoning and return the thoughts in the response
+thinkingConfig: {
+  includeThoughts: true,
+  thinkingLevel: 'LOW',
+}
+
+// For Gemini 2.5: Disable thinking completely to achieve lower latency
+thinkingConfig: {
+  thinkingBudget: 0,
+}
 ```

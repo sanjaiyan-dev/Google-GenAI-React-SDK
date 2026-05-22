@@ -6,7 +6,7 @@
 
 # Interface: UseGenerateContentOptionsQuery
 
-Defined in: [src/types/index.ts:400](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L400)
+Defined in: [src/types/index.ts:429](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L429)
 
 Options specific to the `useGenerateContentQuery` hook.
 
@@ -43,7 +43,7 @@ triggered automatically based on props/dependencies rather than user actions.
 
 > `optional` **cacheConfig?**: `CacheConfig`
 
-Defined in: [src/types/index.ts:426](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L426)
+Defined in: [src/types/index.ts:455](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L455)
 
 Configuration for TanStack Query's caching and garbage collection behavior.
 
@@ -62,7 +62,7 @@ CacheConfig for default values and guidance
 
 > `optional` **maxOutputTokens?**: `number`
 
-Defined in: [src/types/index.ts:330](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L330)
+Defined in: [src/types/index.ts:331](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L331)
 
 Maximum number of tokens to include in the output.
 
@@ -84,7 +84,7 @@ Each model has a maximum supported value. Leaving undefined uses the model's def
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:300](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L300)
+Defined in: [src/types/index.ts:301](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L301)
 
 The Gemini model identifier to use for content generation.
 
@@ -115,7 +115,7 @@ https://ai.google.dev/models/gemini
 
 > **prompt**: `string`
 
-Defined in: [src/types/index.ts:415](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L415)
+Defined in: [src/types/index.ts:444](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L444)
 
 The input prompt for content generation.
 
@@ -137,7 +137,7 @@ This is the primary trigger for the query. Any change to this string will:
 
 > `optional` **retryCount?**: `number`
 
-Defined in: [src/types/index.ts:467](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L467)
+Defined in: [src/types/index.ts:496](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L496)
 
 Number of automatic retry attempts if the fetch fails.
 
@@ -161,7 +161,7 @@ You can trigger a manual retry via the `refetch` method.
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:318](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L318)
+Defined in: [src/types/index.ts:319](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L319)
 
 Optional system instruction to guide the model's behavior.
 
@@ -189,7 +189,7 @@ but can be overridden by contradictory instructions in the user prompt.
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:347](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L347)
+Defined in: [src/types/index.ts:348](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L348)
 
 Controls the randomness and creativity of the output.
 
@@ -216,11 +216,50 @@ undefined (model default, typically 1)
 
 ***
 
+### thinkingConfig?
+
+> `optional` **thinkingConfig?**: `ThinkingConfig`
+
+Defined in: [src/types/index.ts:403](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L403)
+
+Configuration for the model's explicit thinking and reasoning capabilities.
+
+#### Remarks
+
+Enables control over the "chain-of-thought" generation process for complex logic, multi-step planning, and reasoning.
+This feature is supported by Gemini 2.5 and Gemini 3 series models.
+
+**Key Parameters:**
+- `includeThoughts`: Determines whether to return the model's internal reasoning process in the response parts.
+- `thinkingBudget`: (Gemini 2.5 series) The token budget allocated for reasoning. Setting this to `0` disables thinking to reduce latency (except on `gemini-2.5-pro`, which has a minimum budget of `128`).
+- `thinkingLevel`: (Gemini 3 series) The level of reasoning depth (`'MINIMAL'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`). Lower levels reduce latency and token usage for simpler tasks.
+
+#### Example
+
+```typescript
+// For Gemini 3: Request low-level reasoning and return the thoughts in the response
+thinkingConfig: {
+  includeThoughts: true,
+  thinkingLevel: 'LOW',
+}
+
+// For Gemini 2.5: Disable thinking completely to achieve lower latency
+thinkingConfig: {
+  thinkingBudget: 0,
+}
+```
+
+#### Inherited from
+
+[`UseGenerateContentOptions`](UseGenerateContentOptions.md).[`thinkingConfig`](UseGenerateContentOptions.md#thinkingconfig)
+
+***
+
 ### trigger?
 
 > `optional` **trigger?**: `boolean`
 
-Defined in: [src/types/index.ts:453](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L453)
+Defined in: [src/types/index.ts:482](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L482)
 
 Controls whether the query automatically executes.
 

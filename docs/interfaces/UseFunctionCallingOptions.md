@@ -6,7 +6,7 @@
 
 # Interface: UseFunctionCallingOptions
 
-Defined in: [src/types/index.ts:1080](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1080)
+Defined in: [src/types/index.ts:1136](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1136)
 
 Configuration for integrating function calling into a model interaction.
 
@@ -73,7 +73,7 @@ const useFunctionCalling = useFunctionCallingHook({
 
 > **handlers**: `Record`\<`string`, [`FunctionHandler`](../type-aliases/FunctionHandler.md)\>
 
-Defined in: [src/types/index.ts:1131](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1131)
+Defined in: [src/types/index.ts:1187](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1187)
 
 Mapping of function/tool names to their implementation handlers.
 
@@ -105,7 +105,7 @@ handlers: {
 
 > **model**: `string`
 
-Defined in: [src/types/index.ts:1090](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1090)
+Defined in: [src/types/index.ts:1146](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1146)
 
 The Gemini model to use for this function calling session.
 
@@ -122,7 +122,7 @@ Generally supported: gemini-2.0-flash, gemini-1.5-flash, gemini-1.5-pro
 
 > `optional` **systemInstruction?**: `string`
 
-Defined in: [src/types/index.ts:1144](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1144)
+Defined in: [src/types/index.ts:1200](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1200)
 
 Optional system instructions for the function calling session.
 
@@ -141,7 +141,7 @@ Useful for guiding the model's function calling behavior:
 
 > `optional` **temperature?**: `number`
 
-Defined in: [src/types/index.ts:1154](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1154)
+Defined in: [src/types/index.ts:1210](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1210)
 
 Sampling temperature for function calling responses.
 
@@ -157,7 +157,7 @@ Lower temperatures are recommended for function calling to improve consistency.
 
 > **tools**: [`Tool`](Tool.md)[]
 
-Defined in: [src/types/index.ts:1106](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1106)
+Defined in: [src/types/index.ts:1162](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/types/index.ts#L1162)
 
 List of tool/function declarations available to the model.
 
