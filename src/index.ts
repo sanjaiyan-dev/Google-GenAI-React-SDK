@@ -17,7 +17,8 @@ export { useFunctionCalling } from './hooks/useFunctionCalling';
 export { useModelInfo } from './hooks/useModelInfo';
 export {
   useInteractionBaseCreateQuery,
-  useInteractionBaseMutate,
+  useInteractionBaseCreateMutate,
+  useInteractionBaseGetQuery,
 } from './hooks/interactions/useInteractionBase';
 
 // Utils

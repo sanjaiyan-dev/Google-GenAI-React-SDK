@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useGenAIClient } from '../useGenAIClient';
-import { UseInteractionBaseCreateHookQuery, UseInteractionBaseCreateHookMutate } from '../../types';
+import {
+  UseInteractionBaseCreateHookQuery,
+  UseInteractionBaseCreateHookMutate,
+  UseInteractionBaseGetQuery,
+} from '../../types';
 import type { Interactions } from '@google/genai';
 
 /**
@@ -71,7 +75,7 @@ export const useInteractionBaseCreateQuery = (options: UseInteractionBaseCreateH
  * remove.delete({ interactionID: 'example-id' });
  * ```
  */
-export const useInteractionBaseMutate = (options: UseInteractionBaseCreateHookMutate) => {
+export const useInteractionBaseCreateMutate = (options: UseInteractionBaseCreateHookMutate) => {
   const client = useGenAIClient();
 
   const mutationCreate = useMutation({
@@ -184,4 +188,19 @@ export const useInteractionBaseMutate = (options: UseInteractionBaseCreateHookMu
       reset: mutationDelete.reset,
     },
   };
+};
+
+export const useInteractionBaseGetQuery = (options: UseInteractionBaseGetQuery) => {
+  const client = useGenAIClient();
+  const queryKey = ['@google/genai', 'interactionBaseGet', options.client_id] as const;
+
+  return useQuery({
+    queryKey: queryKey,
+    queryFn: async () => {
+      return client.interactions.get(options.client_id);
+    },
+    staleTime: options.cacheConfig?.staleTime ?? 1000 * 60 * 12,
+    gcTime: options.cacheConfig?.gcTime ?? 1000 * 60 * 21,
+    enabled: !!options.client_id,
+  });
 };

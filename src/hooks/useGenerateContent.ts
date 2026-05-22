@@ -39,6 +39,9 @@ export function useGenerateContentMutate(options: UseGenerateContentOptions) {
           ...(options.temperature !== undefined && {
             temperature: options.temperature,
           }),
+          ...(options.thinkingConfig !== undefined && {
+            thinkingConfig: options.thinkingConfig,
+          }),
         },
       });
 
@@ -129,6 +132,9 @@ export const useGenerateContentQuery = (options: UseGenerateContentOptionsQuery)
           }),
           ...(options.temperature !== undefined && {
             temperature: options.temperature,
+          }),
+          ...(options.thinkingConfig !== undefined && {
+            thinkingConfig: options.thinkingConfig,
           }),
         },
       });

@@ -31,6 +31,7 @@ import type {
   Model,
   Models,
   GoogleGenAIOptions,
+  ThinkingConfig,
 } from '@google/genai';
 import type { QueryClient, experimental_streamedQuery } from '@tanstack/react-query';
 
@@ -372,6 +373,34 @@ export interface UseGenerateContentOptions {
    * ```
    */
   onError?: (error: Error) => void | Promise<void>;
+
+  /**
+   * Configuration for the model's explicit thinking and reasoning capabilities.
+   *
+   * @remarks
+   * Enables control over the "chain-of-thought" generation process for complex logic, multi-step planning, and reasoning.
+   * This feature is supported by Gemini 2.5 and Gemini 3 series models.
+   *
+   * **Key Parameters:**
+   * - `includeThoughts`: Determines whether to return the model's internal reasoning process in the response parts.
+   * - `thinkingBudget`: (Gemini 2.5 series) The token budget allocated for reasoning. Setting this to `0` disables thinking to reduce latency (except on `gemini-2.5-pro`, which has a minimum budget of `128`).
+   * - `thinkingLevel`: (Gemini 3 series) The level of reasoning depth (`'MINIMAL'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`). Lower levels reduce latency and token usage for simpler tasks.
+   *
+   * @example
+   * ```typescript
+   * // For Gemini 3: Request low-level reasoning and return the thoughts in the response
+   * thinkingConfig: {
+   *   includeThoughts: true,
+   *   thinkingLevel: 'LOW',
+   * }
+   *
+   * // For Gemini 2.5: Disable thinking completely to achieve lower latency
+   * thinkingConfig: {
+   *   thinkingBudget: 0,
+   * }
+   * ```
+   */
+  thinkingConfig?: ThinkingConfig;
 }
 
 /**
@@ -587,6 +616,33 @@ export interface UseStreamContentOptions {
    * Affects the randomness of each chunk generated.
    */
   temperature?: Model['temperature'];
+  /**
+   * Configuration for the model's explicit thinking and reasoning capabilities.
+   *
+   * @remarks
+   * Enables control over the "chain-of-thought" generation process for complex logic, multi-step planning, and reasoning.
+   * This feature is supported by Gemini 2.5 and Gemini 3 series models.
+   *
+   * **Key Parameters:**
+   * - `includeThoughts`: Determines whether to return the model's internal reasoning process in the response parts.
+   * - `thinkingBudget`: (Gemini 2.5 series) The token budget allocated for reasoning. Setting this to `0` disables thinking to reduce latency (except on `gemini-2.5-pro`, which has a minimum budget of `128`).
+   * - `thinkingLevel`: (Gemini 3 series) The level of reasoning depth (`'MINIMAL'`, `'LOW'`, `'MEDIUM'`, `'HIGH'`). Lower levels reduce latency and token usage for simpler tasks.
+   *
+   * @example
+   * ```typescript
+   * // For Gemini 3: Request low-level reasoning and return the thoughts in the response
+   * thinkingConfig: {
+   *   includeThoughts: true,
+   *   thinkingLevel: 'LOW',
+   * }
+   *
+   * // For Gemini 2.5: Disable thinking completely to achieve lower latency
+   * thinkingConfig: {
+   *   thinkingBudget: 0,
+   * }
+   * ```
+   */
+  thinkingConfig?: ThinkingConfig;
 }
 
 /**
@@ -1337,6 +1393,28 @@ export interface UseInteractionBaseCreateHookQuery extends UseInteractionBaseCre
    * @default true
    */
   trigger?: boolean;
+}
+
+export interface UseInteractionBaseGetQuery {
+  /**
+   * The unique identifier of the interaction.
+   *
+   * @remarks
+   * This corresponds to the `Interaction.id` and is used to pinpoint the
+   * specific interaction to be retrieved.
+   */
+  client_id: string;
+
+  /**
+   * Configuration for caching the retrieved interaction details.
+   *
+   * @remarks
+   * Controls how long the interaction data remains in the cache and when
+   * a refetch should be triggered. See {@link CacheConfig} for a detailed explanation.
+   *
+   * @see CacheConfig
+   */
+  cacheConfig: CacheConfig;
 }
 
 // ─── Re-exports from @google/genai for convenience ───────────────────────────

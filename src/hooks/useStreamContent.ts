@@ -55,6 +55,9 @@ export function useStreamContent(options: UseStreamContentOptions) {
             ...(options.temperature !== undefined && {
               temperature: options.temperature,
             }),
+            ...(options.thinkingConfig !== undefined && {
+              thinkingConfig: options.thinkingConfig,
+            }),
           },
         });
 
@@ -83,7 +86,13 @@ export function useStreamContent(options: UseStreamContentOptions) {
         }
       }
     },
-    [client, options.model, options.systemInstruction, options.temperature],
+    [
+      client.models,
+      options.model,
+      options.systemInstruction,
+      options.temperature,
+      options.thinkingConfig,
+    ],
   );
 
   const abort = useCallback(() => {
@@ -161,6 +170,17 @@ export const useStreamContentQuery = (options: UseStreamContentQueryOptions) => 
           await client.models.generateContentStream({
             model: options.model,
             contents: options.prompt ?? '',
+            config: {
+              ...(options.systemInstruction && {
+                systemInstruction: options.systemInstruction,
+              }),
+              ...(options.temperature !== undefined && {
+                temperature: options.temperature,
+              }),
+              ...(options.thinkingConfig !== undefined && {
+                thinkingConfig: options.thinkingConfig,
+              }),
+            },
           }),
 
         refetchMode: options.refetchMode ?? 'reset',
