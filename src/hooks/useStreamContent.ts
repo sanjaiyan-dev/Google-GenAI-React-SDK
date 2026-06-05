@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { startTransition, useCallback, useRef, useState } from 'react';
 import { useGenAIClient } from './useGenAIClient.js';
 import type {
   UseStreamContentOptions,
@@ -63,14 +63,16 @@ export function useStreamContent(options: UseStreamContentOptions) {
 
         for await (const chunk of streamResult) {
           if (aborted) break;
-          const chunkText = chunk.text ?? '';
-          if (chunkText) {
-            setState((prev) => ({
-              ...prev,
-              chunks: [...prev.chunks, chunkText],
-              fullText: prev.fullText + chunkText,
-            }));
-          }
+          startTransition(() => {
+            const chunkText = chunk.text ?? '';
+            if (chunkText) {
+              setState((prev) => ({
+                ...prev,
+                chunks: [...prev.chunks, chunkText],
+                fullText: prev.fullText + chunkText,
+              }));
+            }
+          });
         }
 
         if (!aborted) {

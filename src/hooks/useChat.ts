@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
 import type { Chat } from '@google/genai';
 import { useGenAIClient } from './useGenAIClient.js';
 import type { ChatMessage, UseChatOptions } from '../types/index.js';
@@ -74,16 +74,23 @@ export function useChat(options: UseChatOptions) {
           for await (const chunk of result) {
             const chunkText = chunk.text ?? '';
             if (chunkText) {
-              setMessages((prev) =>
-                prev.map((m) => (m.id === modelMsgId ? { ...m, text: m.text + chunkText } : m)),
-              );
+              startTransition(() => {
+                setMessages((prev) =>
+                  prev.map((m) => (m.id === modelMsgId ? { ...m, text: m.text + chunkText } : m)),
+                );
+              });
             }
           }
           streamingMsgIdRef.current = null;
         } else {
-          const response = await chat.sendMessage({ message: text });
-          const responseText = response.text ?? '';
-          setMessages((prev) => [...prev, { role: 'model', text: responseText, id: generateId() }]);
+          startTransition(async () => {
+            const response = await chat.sendMessage({ message: text });
+            const responseText = response.text ?? '';
+            setMessages((prev) => [
+              ...prev,
+              { role: 'model', text: responseText, id: generateId() },
+            ]);
+          });
         }
       } catch (err) {
         setError(err instanceof Error ? err : new Error(String(err)));

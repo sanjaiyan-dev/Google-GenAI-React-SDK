@@ -8,7 +8,7 @@
 
 > **useStreamContentQuery**(`options`): `object`
 
-Defined in: [src/hooks/useStreamContent.ts:154](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useStreamContent.ts#L154)
+Defined in: [src/hooks/useStreamContent.ts:156](https://github.com/sanjaiyan-dev/Google-GenAI-React-SDK/blob/main/src/hooks/useStreamContent.ts#L156)
 
 **`Experimental`**
 
