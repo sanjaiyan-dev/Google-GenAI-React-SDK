@@ -6,7 +6,7 @@
 
 # Interface: Tool
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11004
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11335
 
 Tool details of a tool that the model may use to generate a response.
 
@@ -16,7 +16,7 @@ Tool details of a tool that the model may use to generate a response.
 
 > `optional` **codeExecution?**: `ToolCodeExecution`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11019
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11350
 
 Optional. CodeExecution tool type. Enables the model to execute code as part of generation.
 
@@ -26,7 +26,7 @@ Optional. CodeExecution tool type. Enables the model to execute code as part of 
 
 > `optional` **computerUse?**: `ComputerUse`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11010
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11341
 
 Optional. Tool to support the model interacting directly with the
 computer. If enabled, it automatically populates computer-use specific
@@ -38,7 +38,7 @@ Function Declarations.
 
 > `optional` **enterpriseWebSearch?**: `EnterpriseWebSearch`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11021
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11352
 
 Optional. Tool to support searching public web data, powered by Vertex AI Search and Sec4 compliance. This field is not supported in Gemini API.
 
@@ -48,7 +48,7 @@ Optional. Tool to support searching public web data, powered by Vertex AI Search
 
 > `optional` **fileSearch?**: `FileSearch`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11012
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11343
 
 Optional. FileSearch tool type. Tool to retrieve knowledge from Semantic Retrieval corpora. This field is not supported in Vertex AI.
 
@@ -58,7 +58,7 @@ Optional. FileSearch tool type. Tool to retrieve knowledge from Semantic Retriev
 
 > `optional` **functionDeclarations?**: `FunctionDeclaration`[]
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11023
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11354
 
 Optional. Function tool type. One or more function declarations to be passed to the model along with the current user query. Model may decide to call a subset of these functions by populating FunctionCall in the response. User should provide a FunctionResponse for each function call in the next turn. Based on the function responses, Model will generate the final response back to the user. Maximum 512 function declarations can be provided.
 
@@ -68,7 +68,7 @@ Optional. Function tool type. One or more function declarations to be passed to 
 
 > `optional` **googleMaps?**: `GoogleMaps`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11017
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11348
 
 Optional. Tool that allows grounding the model's response with
 geospatial context related to the user's query.
@@ -79,7 +79,7 @@ geospatial context related to the user's query.
 
 > `optional` **googleSearch?**: `GoogleSearch`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11014
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11345
 
 Optional. GoogleSearch tool type. Tool to support Google Search in Model. Powered by Google.
 
@@ -89,7 +89,7 @@ Optional. GoogleSearch tool type. Tool to support Google Search in Model. Powere
 
 > `optional` **googleSearchRetrieval?**: `GoogleSearchRetrieval`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11025
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11356
 
 Optional. Specialized retrieval tool that is powered by Google Search.
 
@@ -99,7 +99,7 @@ Optional. Specialized retrieval tool that is powered by Google Search.
 
 > `optional` **mcpServers?**: `McpServer`[]
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11031
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11362
 
 Optional. MCP Servers to connect to. This field is not supported in Vertex AI.
 
@@ -109,7 +109,7 @@ Optional. MCP Servers to connect to. This field is not supported in Vertex AI.
 
 > `optional` **parallelAiSearch?**: `ToolParallelAiSearch`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11027
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11358
 
 Optional. If specified, Vertex AI will use Parallel.ai to search for information to answer user queries. The search results will be grounded on Parallel.ai and presented to the model for response generation. This field is not supported in Gemini API.
 
@@ -119,7 +119,7 @@ Optional. If specified, Vertex AI will use Parallel.ai to search for information
 
 > `optional` **retrieval?**: `Retrieval`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11006
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11337
 
 Optional. Retrieval tool type. System will always execute the provided retrieval tool(s) to get external knowledge to answer the prompt. Retrieval results are presented to the model for generation. This field is not supported in Gemini API.
 
@@ -129,6 +129,6 @@ Optional. Retrieval tool type. System will always execute the provided retrieval
 
 > `optional` **urlContext?**: `UrlContext`
 
-Defined in: node\_modules/@google/genai/dist/genai.d.ts:11029
+Defined in: node\_modules/@google/genai/dist/genai.d.ts:11360
 
 Optional. Tool to support URL context retrieval.

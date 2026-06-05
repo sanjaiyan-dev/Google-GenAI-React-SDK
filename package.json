@@ -47,7 +47,7 @@
     }
   },
   "dependencies": {
-    "@google/genai": "^2.6.0",
+    "@google/genai": "^2.8.0",
     "react-compiler-runtime": "^1.0.0"
   },
   "devDependencies": {
