@@ -86,10 +86,12 @@ export function useChat(options: UseChatOptions) {
           startTransition(async () => {
             const response = await chat.sendMessage({ message: text });
             const responseText = response.text ?? '';
-            setMessages((prev) => [
-              ...prev,
-              { role: 'model', text: responseText, id: generateId() },
-            ]);
+            startTransition(() => {
+              setMessages((prev) => [
+                ...prev,
+                { role: 'model', text: responseText, id: generateId() },
+              ]);
+            });
           });
         }
       } catch (err) {
